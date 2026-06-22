@@ -29,7 +29,7 @@ export default function HeroSection() {
             />
           </div>
           {/* Invisible spacer to balance the right column's paragraph */}
-          <p className="max-w-[280px] text-sm sm:text-base mt-6 leading-relaxed font-medium lg:mr-1 invisible opacity-0 select-none pointer-events-none" aria-hidden="true">
+          <p className="hidden lg:block max-w-[280px] text-sm sm:text-base mt-6 leading-relaxed font-medium lg:mr-1 invisible opacity-0 select-none pointer-events-none" aria-hidden="true">
             I'm a passionate Jr. UI/UX Designer, eager to craft user-centered experiences from design to code.
           </p>
         </div>
@@ -41,7 +41,7 @@ export default function HeroSection() {
 
         {/* Right: Role Title + Intro */}
         <div className="justify-self-center lg:justify-self-start flex flex-col items-center lg:items-start text-center lg:text-left mt-8 lg:mt-0 lg:pt-16 reveal hero-parallax w-full relative">
-          <span className="text-xs md:text-sm tracking-[0.15em] font-semibold uppercase mb-3 invisible opacity-0 select-none pointer-events-none w-full" aria-hidden="true">
+          <span className="hidden lg:block text-xs md:text-sm tracking-[0.15em] font-semibold uppercase mb-3 invisible opacity-0 select-none pointer-events-none w-full" aria-hidden="true">
             Spacer
           </span>
           <div className="w-full flex justify-center lg:justify-start relative h-[60px] sm:h-[100px] md:h-[120px] lg:h-[80px] xl:h-[110px] 2xl:h-[150px]">
