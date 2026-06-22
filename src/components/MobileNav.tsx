@@ -19,15 +19,15 @@ export default function MobileNav({ activeSection, isOpen, onClose }: MobileNavP
   };
 
   return (
-    <div className={`fixed inset-0 z-0 bg-foreground flex flex-col justify-between py-12 px-6 overflow-hidden transition-opacity duration-700 ${isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}>
+    <div className={`fixed inset-0 z-0 bg-zinc-950 dark:bg-black flex flex-col justify-between py-12 px-6 overflow-hidden transition-opacity duration-700 ${isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}>
       {/* Top: Avatar & Close */}
       <div className="flex justify-between items-center w-full max-w-[65vw]">
-        <div className="relative overflow-hidden rounded-full w-12 h-12 border border-gray-600/50">
-          <img src={asset("logo.png")} alt="Logo" className="w-full h-full object-cover" />
+        <div className="relative overflow-hidden rounded-full w-12 h-12 border border-white/20">
+          <img src={asset("logo.png")} alt="Logo" className="w-full h-full object-cover grayscale" />
         </div>
         <button
           onClick={onClose}
-          className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-background hover:bg-white/20 transition-colors"
+          className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
         >
           <X size={20} />
         </button>
@@ -43,10 +43,10 @@ export default function MobileNav({ activeSection, isOpen, onClose }: MobileNavP
               href={link.href}
               onClick={onClose}
               className={`flex items-center gap-6 text-lg font-bold uppercase tracking-widest transition-colors ${
-                isActive ? "text-primary" : "text-background/60 hover:text-background"
+                isActive ? "text-primary" : "text-white/60 hover:text-white"
               }`}
             >
-              <div className={`${isActive ? "text-primary" : "text-background/40"}`}>
+              <div className={`${isActive ? "text-primary" : "text-white/40"}`}>
                 {getIcon(link.sectionKey)}
               </div>
               {link.label}
@@ -60,7 +60,7 @@ export default function MobileNav({ activeSection, isOpen, onClose }: MobileNavP
         <a
           href="#contact"
           onClick={onClose}
-          className="bg-primary text-foreground px-6 py-4 rounded-full font-bold uppercase tracking-widest text-xs flex items-center justify-center w-full shadow-lg"
+          className="bg-primary text-black px-6 py-4 rounded-full font-bold uppercase tracking-widest text-xs flex items-center justify-center w-full shadow-lg"
         >
           Let's Talk
         </a>
