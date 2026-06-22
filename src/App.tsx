@@ -42,7 +42,7 @@ export default function App() {
   useGSAPAnimations(containerRef);
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className="overflow-x-hidden w-full relative">
       {/* Floating elements (positioned absolutely / fixed) */}
       <MagicalImage />
       <CursorElements />

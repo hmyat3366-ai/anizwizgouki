@@ -22,10 +22,10 @@ export default function HeroSection() {
           <span className="text-xs md:text-sm tracking-[0.15em] font-semibold uppercase mb-3 text-gray-800 dark:text-gray-300 ml-1 lg:ml-auto w-full">
             Aniz Wiz Gouki
           </span>
-          <div className="w-full flex justify-end relative h-[70px] sm:h-[100px] md:h-[120px] lg:h-[80px] xl:h-[110px] 2xl:h-[150px]" dir="rtl">
+          <div className="w-full flex justify-end relative h-[60px] sm:h-[100px] md:h-[120px] lg:h-[80px] xl:h-[110px] 2xl:h-[150px]" dir="rtl">
             <MorphingText
               texts={["JR.UI/UX", "JR.UI/UX"]}
-              className="font-display text-[60px] sm:text-[90px] md:text-[110px] lg:text-[70px] xl:text-[100px] 2xl:text-[140px] leading-none font-bold text-foreground uppercase tracking-tighter w-max absolute right-0 top-0 h-full !mx-0 text-right whitespace-nowrap"
+              className="font-display text-[50px] sm:text-[90px] md:text-[110px] lg:text-[70px] xl:text-[100px] 2xl:text-[140px] leading-none font-bold text-foreground uppercase tracking-tighter w-max absolute right-0 top-0 h-full !mx-0 text-right whitespace-nowrap"
             />
           </div>
           {/* Invisible spacer to balance the right column's paragraph */}
@@ -35,7 +35,7 @@ export default function HeroSection() {
         </div>
 
         {/* Center: Image Placeholder (driven by MagicalImage) */}
-        <div className="relative w-[300px] sm:w-[400px] xl:w-[460px] max-w-full mx-auto z-10 order-first lg:order-none mt-12 lg:mt-0">
+        <div className="relative w-full max-w-[300px] sm:max-w-[400px] xl:max-w-[460px] mx-auto z-10 order-first lg:order-none mt-12 lg:mt-0">
           <div id="hero-placeholder" className="img-placeholder aspect-[3/4] w-full" />
         </div>
 
@@ -44,10 +44,10 @@ export default function HeroSection() {
           <span className="text-xs md:text-sm tracking-[0.15em] font-semibold uppercase mb-3 invisible opacity-0 select-none pointer-events-none w-full" aria-hidden="true">
             Spacer
           </span>
-          <div className="w-full flex justify-start relative h-[70px] sm:h-[100px] md:h-[120px] lg:h-[80px] xl:h-[110px] 2xl:h-[150px]">
+          <div className="w-full flex justify-start relative h-[60px] sm:h-[100px] md:h-[120px] lg:h-[80px] xl:h-[110px] 2xl:h-[150px]">
             <MorphingText
               texts={["DESIGNER", "DESIGNER"]}
-              className="font-display text-[60px] sm:text-[90px] md:text-[110px] lg:text-[70px] xl:text-[100px] 2xl:text-[140px] leading-none font-bold text-foreground uppercase tracking-tighter w-max absolute left-0 top-0 h-full !mx-0 text-left whitespace-nowrap"
+              className="font-display text-[50px] sm:text-[90px] md:text-[110px] lg:text-[70px] xl:text-[100px] 2xl:text-[140px] leading-none font-bold text-foreground uppercase tracking-tighter w-max absolute left-0 top-0 h-full !mx-0 text-left whitespace-nowrap"
             />
           </div>
           <p className="max-w-[280px] text-muted-foreground text-sm sm:text-base mt-6 leading-relaxed font-medium lg:ml-1">
