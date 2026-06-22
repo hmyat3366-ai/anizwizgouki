@@ -34,7 +34,7 @@ export default function Header({ activeSection }: HeaderProps) {
       {/* Center Nav (Desktop Only) */}
       <nav
         id="center-nav"
-        className="hidden md:flex absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 items-center bg-background/80 backdrop-blur-xl rounded-full p-1.5 border border-gray-200/50 dark:border-border/50 shadow-sm pointer-events-auto transition-all duration-500 overflow-hidden"
+        className="hidden lg:flex absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 items-center bg-background/80 backdrop-blur-xl rounded-full p-1.5 border border-gray-200/50 dark:border-border/50 shadow-sm pointer-events-auto transition-all duration-500 overflow-hidden"
       >
         {/* Nav Links */}
         <div id="nav-state-1" className="flex items-center overflow-hidden">
@@ -103,7 +103,7 @@ export default function Header({ activeSection }: HeaderProps) {
       <a
         id="header-cta"
         href="#contact"
-        className="hidden md:flex pointer-events-auto group bg-gray-900 dark:bg-white text-background px-8 py-3.5 rounded-full text-[13px] font-bold uppercase tracking-widest shadow-lg transform transition-all duration-500 ease-[cubic-bezier(0.5,0,0,1)] hover:scale-105 active:scale-95 items-center"
+        className="hidden lg:flex pointer-events-auto group bg-gray-900 dark:bg-white text-background px-8 py-3.5 rounded-full text-[13px] font-bold uppercase tracking-widest shadow-lg transform transition-all duration-500 ease-[cubic-bezier(0.5,0,0,1)] hover:scale-105 active:scale-95 items-center"
       >
         <div className="relative overflow-hidden h-5 flex items-center">
           <span className="flex items-center gap-2 transition-transform duration-500 group-hover:-translate-y-[150%]">

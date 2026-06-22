@@ -22,7 +22,7 @@ export default function MobileNav({ activeSection }: MobileNavProps) {
   }, [isOpen]);
 
   return (
-    <div className="md:hidden flex items-center z-[200] pointer-events-auto">
+    <div className="lg:hidden flex items-center z-[200] pointer-events-auto">
       {/* Hamburger Button */}
       <button
         onClick={() => setIsOpen(true)}
