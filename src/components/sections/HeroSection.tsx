@@ -35,7 +35,7 @@ export default function HeroSection() {
         </div>
 
         {/* Center: Image Placeholder (driven by MagicalImage) */}
-        <div className="relative w-full max-w-[300px] sm:max-w-[400px] xl:max-w-[460px] mx-auto z-10 order-first lg:order-none mt-12 lg:mt-0">
+        <div className="relative w-[80vw] max-w-[300px] sm:max-w-[400px] lg:w-[400px] xl:w-[460px] mx-auto z-10 order-first lg:order-none mt-12 lg:mt-0">
           <div id="hero-placeholder" className="img-placeholder aspect-[3/4] w-full" />
         </div>
 
