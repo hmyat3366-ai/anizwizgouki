@@ -29,7 +29,7 @@ export default function SkillsSection() {
       </div>
 
       {/* Right: Sticky placeholder for the morphing image */}
-      <div className="sticky top-32 w-full h-full min-h-[500px] flex items-center justify-center pointer-events-none">
+      <div className="sticky top-32 w-full h-full min-h-[350px] md:min-h-[500px] flex items-center justify-center pointer-events-none">
         <div id="services-placeholder" className="img-placeholder w-4/5 md:w-2/3 lg:w-4/5 aspect-[4/5]" />
       </div>
     </section>

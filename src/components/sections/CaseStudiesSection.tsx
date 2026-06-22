@@ -18,8 +18,8 @@ export default function CaseStudiesSection({ onOpenStudy }: Props) {
           const c = CASE_STUDY_STACK_CONFIG[i];
           return (
             <div key={s.id} onClick={() => onOpenStudy(slug)} role="button" tabIndex={0}
-              className={`block case-study-item sticky ${c.topOffset} w-full min-h-[500px] md:aspect-[21/9] bg-card rounded-[2rem] sm:rounded-[3rem] overflow-hidden group cursor-none shadow-xl reveal border border-border ${c.zIndex} grid grid-cols-1 md:grid-cols-2`}>
-              <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-between bg-muted order-2 md:order-1 transition-colors">
+              className={`block case-study-item sticky ${c.topOffset} w-full min-h-[500px] lg:aspect-[21/9] bg-card rounded-[2rem] sm:rounded-[3rem] overflow-hidden group cursor-none shadow-xl reveal border border-border ${c.zIndex} grid grid-cols-1 lg:grid-cols-2`}>
+              <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-between bg-muted order-2 lg:order-1 transition-colors">
                 <div className="flex justify-between items-start w-full">
                   <span className="inline-block px-4 py-1.5 bg-primary/10 text-primary font-bold text-[10px] tracking-widest uppercase rounded-full mb-6">{s.tag}</span>
                   <span className="text-muted-foreground font-bold font-display text-lg">[ {s.year} ]</span>
@@ -32,7 +32,7 @@ export default function CaseStudiesSection({ onOpenStudy }: Props) {
                   {s.roles.map((r, j) => (<span key={r}>{j > 0 && <span className="text-primary mr-3">•</span>}{r}</span>))}
                 </div>
               </div>
-              <div className="w-full h-[300px] md:h-full relative overflow-hidden order-1 md:order-2">
+              <div className="w-full h-[300px] lg:h-full relative overflow-hidden order-1 lg:order-2">
                 <img src={s.image} loading="lazy" className={`w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 ${s.id === "dmar" ? "object-top bg-secondary" : ""}`} />
               </div>
             </div>

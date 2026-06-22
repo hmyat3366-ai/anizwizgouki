@@ -29,7 +29,7 @@ export default function AboutSection() {
       </div>
 
       {/* Image Placeholder */}
-      <div className="relative w-full h-full min-h-[500px] flex items-center justify-center order-1 lg:order-2 pointer-events-none">
+      <div className="relative w-full h-full min-h-[350px] md:min-h-[500px] flex items-center justify-center order-1 lg:order-2 pointer-events-none">
         <div id="about-placeholder" className="img-placeholder w-4/5 md:w-2/3 lg:w-4/5 aspect-[4/5]" />
       </div>
     </section>
