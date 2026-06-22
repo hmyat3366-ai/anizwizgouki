@@ -1,91 +1,69 @@
-import { useState, useEffect } from "react";
 import { NAV_LINKS } from "../data/navigation";
-import { X, Menu } from "lucide-react";
+import { X, User, Briefcase, LayoutGrid } from "lucide-react";
+import { asset } from "../lib/asset";
 
 interface MobileNavProps {
   activeSection: string;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-export default function MobileNav({ activeSection }: MobileNavProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  // Prevent scrolling when menu is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
+export default function MobileNav({ activeSection, isOpen, onClose }: MobileNavProps) {
+  const getIcon = (key: string) => {
+    switch (key) {
+      case "about": return <User size={24} />;
+      case "services": return <Briefcase size={24} />;
+      case "work": return <LayoutGrid size={24} />;
+      default: return null;
     }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isOpen]);
+  };
 
   return (
-    <div className="lg:hidden flex items-center z-[200] pointer-events-auto">
-      {/* Hamburger Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="w-12 h-12 rounded-full border border-border bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors shadow-sm"
-      >
-        <Menu size={20} />
-      </button>
-
-      {/* Full Screen Overlay */}
-      <div
-        className={`fixed inset-0 w-full h-[100dvh] bg-background z-[300] flex flex-col justify-between transition-all duration-700 ease-[cubic-bezier(0.7,0,0.3,1)] ${
-          isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
-        }`}
-      >
-        {/* Top Header of Menu */}
-        <div className="flex items-center justify-between px-6 py-6 border-b border-border">
-          <span className="font-display uppercase tracking-widest text-xs font-bold">
-            Navigation
-          </span>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors"
-          >
-            <X size={20} />
-          </button>
+    <div className={`fixed inset-0 z-0 bg-foreground flex flex-col justify-between py-12 px-6 overflow-hidden transition-opacity duration-700 ${isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}>
+      {/* Top: Avatar & Close */}
+      <div className="flex justify-between items-center w-full max-w-[65vw]">
+        <div className="relative overflow-hidden rounded-full w-12 h-12 border border-gray-600/50">
+          <img src={asset("logo.png")} alt="Logo" className="w-full h-full object-cover" />
         </div>
+        <button
+          onClick={onClose}
+          className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-background hover:bg-white/20 transition-colors"
+        >
+          <X size={20} />
+        </button>
+      </div>
 
-        {/* Giant Links */}
-        <div className="flex-1 flex flex-col justify-center px-6 gap-8">
-          {NAV_LINKS.map((link, i) => (
+      {/* Links */}
+      <div className="flex flex-col gap-10 w-full max-w-[65vw] mt-12 flex-1 justify-center">
+        {NAV_LINKS.map((link) => {
+          const isActive = activeSection === link.sectionKey;
+          return (
             <a
               key={link.sectionKey}
               href={link.href}
-              onClick={() => setIsOpen(false)}
-              className={`font-display text-[50px] sm:text-[70px] uppercase font-bold leading-none tracking-tighter transition-all duration-500 flex items-center justify-between group ${
-                activeSection === link.sectionKey
-                  ? "text-primary"
-                  : "text-foreground hover:text-primary"
+              onClick={onClose}
+              className={`flex items-center gap-6 text-lg font-bold uppercase tracking-widest transition-colors ${
+                isActive ? "text-primary" : "text-background/60 hover:text-background"
               }`}
-              style={{
-                transform: isOpen ? "translateY(0)" : "translateY(50px)",
-                opacity: isOpen ? 1 : 0,
-                transitionDelay: `${i * 100}ms`,
-              }}
             >
-              <span>{link.label}</span>
-              <span className="text-xl opacity-0 group-hover:opacity-100 transition-opacity">
-                ↗
-              </span>
+              <div className={`${isActive ? "text-primary" : "text-background/40"}`}>
+                {getIcon(link.sectionKey)}
+              </div>
+              {link.label}
             </a>
-          ))}
-        </div>
+          );
+        })}
+      </div>
 
-        {/* Footer of Menu */}
-        <div className="p-6 border-t border-border flex items-center justify-between">
-          <a
-            href="#contact"
-            onClick={() => setIsOpen(false)}
-            className="bg-foreground text-background px-8 py-4 rounded-full text-xs font-bold uppercase tracking-widest text-center w-full shadow-lg"
-          >
-            Let's Talk
-          </a>
-        </div>
+      {/* Bottom CTA */}
+      <div className="w-full max-w-[65vw] pb-8">
+        <a
+          href="#contact"
+          onClick={onClose}
+          className="bg-primary text-foreground px-6 py-4 rounded-full font-bold uppercase tracking-widest text-xs flex items-center justify-center w-full shadow-lg"
+        >
+          Let's Talk
+        </a>
       </div>
     </div>
   );

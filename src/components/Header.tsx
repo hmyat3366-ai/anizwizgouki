@@ -1,17 +1,18 @@
 import { NAV_LINKS } from "../data/navigation";
 import { ArrowIcon } from "./icons";
 import { asset } from "../lib/asset";
-import MobileNav from "./MobileNav";
+import { Menu } from "lucide-react";
 
 interface HeaderProps {
   activeSection: string;
+  onOpenMobileNav: () => void;
 }
 
 /**
  * Sticky header with sliding pill navigation, availability badge, and CTA.
  * Scroll behavior (hide/show/pill) is driven by the GSAP hook via DOM IDs.
  */
-export default function Header({ activeSection }: HeaderProps) {
+export default function Header({ activeSection, onOpenMobileNav }: HeaderProps) {
   return (
     <header
       id="main-header"
@@ -115,8 +116,13 @@ export default function Header({ activeSection }: HeaderProps) {
         </div>
       </a>
 
-      {/* Mobile Nav Overlay */}
-      <MobileNav activeSection={activeSection} />
+      {/* Mobile Hamburger Button */}
+      <button
+        onClick={onOpenMobileNav}
+        className="lg:hidden pointer-events-auto w-12 h-12 rounded-full border border-border bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors shadow-sm"
+      >
+        <Menu size={20} />
+      </button>
     </header>
   );
 }

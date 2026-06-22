@@ -32,41 +32,71 @@ import ExperienceSection from "./components/sections/ExperienceSection";
 import CaseStudiesSection from "./components/sections/CaseStudiesSection";
 import Footer from "./components/sections/Footer";
 
+import MobileNav from "./components/MobileNav";
+
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeCaseStudy, setActiveCaseStudy] = useState<string | null>(null);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
   // Custom hooks — each encapsulates a single responsibility
   const activeSection = useActiveSection();
-  useBodyOverflow(!!activeCaseStudy);
+  useBodyOverflow(!!activeCaseStudy || isMobileNavOpen);
   useGSAPAnimations(containerRef);
 
   return (
-    <div ref={containerRef} className="overflow-x-hidden w-full relative">
-      {/* Floating elements (positioned absolutely / fixed) */}
-      <MagicalImage />
-      <CursorElements />
-      <Header activeSection={activeSection} />
+    <div className="relative w-full min-h-screen bg-foreground overflow-hidden">
+      {/* 1. Underlying Mobile Nav Menu */}
+      <MobileNav 
+        isOpen={isMobileNavOpen} 
+        onClose={() => setIsMobileNavOpen(false)} 
+        activeSection={activeSection} 
+      />
 
-      {/* Main content sections */}
-      <main className="relative w-full mx-auto flex-1 flex flex-col items-center pt-24 mb-24 px-4 sm:px-8">
-        <HeroSection />
-        <ToolsMarquee />
-        <SkillsSection />
-        <AboutSection />
-        <ExperienceSection />
-        <CaseStudiesSection onOpenStudy={setActiveCaseStudy} />
-      </main>
+      {/* 2. Scalable Main Content Container */}
+      <div 
+        ref={containerRef} 
+        className={`w-full relative min-h-screen bg-background transition-all duration-700 ease-[cubic-bezier(0.7,0,0.3,1)] origin-right ${
+          isMobileNavOpen 
+            ? "scale-[0.85] translate-x-[65%] sm:translate-x-[50%] rounded-[2rem] sm:rounded-[3rem] shadow-2xl overflow-hidden pointer-events-none" 
+            : "scale-100 translate-x-0 rounded-none pointer-events-auto"
+        }`}
+      >
+        {/* Floating elements (positioned absolutely / fixed) */}
+        <MagicalImage />
+        <CursorElements />
+        <Header activeSection={activeSection} onOpenMobileNav={() => setIsMobileNavOpen(true)} />
 
-      <Footer />
-      <ThemeToggle />
+        {/* Main content sections */}
+        <main className="relative w-full mx-auto flex-1 flex flex-col items-center pt-24 mb-24 px-4 sm:px-8 max-w-[1920px]">
+          <HeroSection />
+          <ToolsMarquee />
+          <SkillsSection />
+          <AboutSection />
+          <ExperienceSection />
+          <CaseStudiesSection onOpenStudy={setActiveCaseStudy} />
+        </main>
 
-      {/* Overlays */}
+        <Footer />
+        <ThemeToggle />
+
+        {/* Floating Chat */}
+        <ChatAgent />
+
+        {/* Invisible Overlay to close nav when clicking main container */}
+        {isMobileNavOpen && (
+          <div 
+            className="absolute inset-0 z-[9999] cursor-pointer pointer-events-auto" 
+            onClick={() => setIsMobileNavOpen(false)} 
+          />
+        )}
+      </div>
+
+      {/* Overlays (Keep Modals outside the scalable container so they can be full-screen) */}
       <CaseStudyModal
         activeStudySlug={activeCaseStudy}
         onClose={() => setActiveCaseStudy(null)}
       />
-      <ChatAgent />
     </div>
   );
 }
