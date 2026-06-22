@@ -45,7 +45,7 @@ export default function App() {
   useGSAPAnimations(containerRef);
 
   return (
-    <div className="relative w-full min-h-screen bg-foreground overflow-hidden">
+    <div className="relative w-full min-h-screen bg-foreground overflow-x-clip">
       {/* 1. Underlying Mobile Nav Menu */}
       <MobileNav 
         isOpen={isMobileNavOpen} 
@@ -56,10 +56,10 @@ export default function App() {
       {/* 2. Scalable Main Content Container */}
       <div 
         ref={containerRef} 
-        className={`w-full relative min-h-screen bg-background transition-all duration-700 ease-[cubic-bezier(0.7,0,0.3,1)] origin-right ${
+        className={`w-full relative bg-background transition-all duration-700 ease-[cubic-bezier(0.7,0,0.3,1)] origin-right ${
           isMobileNavOpen 
             ? "scale-[0.85] translate-x-[65%] sm:translate-x-[50%] rounded-[2rem] sm:rounded-[3rem] shadow-2xl overflow-hidden pointer-events-none" 
-            : "scale-100 translate-x-0 rounded-none pointer-events-auto"
+            : "rounded-none pointer-events-auto"
         }`}
       >
         {/* Floating elements (positioned absolutely / fixed) */}
@@ -78,10 +78,12 @@ export default function App() {
         </main>
 
         <Footer />
-        <ThemeToggle />
-
-        {/* Floating Chat */}
-        <ChatAgent />
+        
+        {/* Fade out fixed elements when drawer is open to prevent transform containing block teleportation */}
+        <div className={`transition-opacity duration-300 ${isMobileNavOpen ? 'opacity-0' : 'opacity-100'}`}>
+          <ThemeToggle />
+          <ChatAgent />
+        </div>
 
         {/* Invisible Overlay to close nav when clicking main container */}
         {isMobileNavOpen && (

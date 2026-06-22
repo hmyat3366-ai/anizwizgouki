@@ -98,7 +98,13 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
         if (magicInner) gsap.set(magicInner, { rotationY: 0 });
       }
 
-      window.addEventListener("resize", () => ScrollTrigger.refresh());
+      // Add ResizeObserver to force GSAP refresh on dynamic layout shifts (e.g. late font loading, mobile address bar)
+      const resizeObserver = new ResizeObserver(() => {
+        ScrollTrigger.refresh();
+      });
+      if (containerRef.current) {
+        resizeObserver.observe(containerRef.current);
+      }
 
       // Hero → Skills morph (flip to back face)
       if (magicContainer && servicesPl && heroPl) {
@@ -115,12 +121,18 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
             },
           },
         });
-        tl1.to(magicContainer, {
+        tl1.fromTo(magicContainer, {
+          x: () => getDocOffset(heroPl).left,
+          y: () => getDocOffset(heroPl).top,
+          width: () => getDocOffset(heroPl).width,
+          height: () => getDocOffset(heroPl).height,
+        }, {
           x: () => getDocOffset(servicesPl).left,
           y: () => getDocOffset(servicesPl).top,
           width: () => getDocOffset(servicesPl).width,
           height: () => getDocOffset(servicesPl).height,
           ease: "power1.inOut",
+          immediateRender: false,
         }, 0);
         if (magicInner) tl1.to(magicInner, { rotationY: 180, ease: "power1.inOut" }, 0);
       }
@@ -140,12 +152,18 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
             },
           },
         });
-        tl2.to(magicContainer, {
+        tl2.fromTo(magicContainer, {
+          x: () => getDocOffset(servicesPl).left,
+          y: () => getDocOffset(servicesPl).top,
+          width: () => getDocOffset(servicesPl).width,
+          height: () => getDocOffset(servicesPl).height,
+        }, {
           x: () => getDocOffset(aboutPl).left,
           y: () => getDocOffset(aboutPl).top,
           width: () => getDocOffset(aboutPl).width,
           height: () => getDocOffset(aboutPl).height,
           ease: "power1.inOut",
+          immediateRender: false,
         }, 0);
         if (magicInner) tl2.to(magicInner, { rotationY: 360, ease: "power1.inOut" }, 0);
       }
@@ -195,18 +213,45 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
 
       // ── 7. Header Scroll Hide/Show ──
       const mainHeader = document.getElementById("main-header");
+      let scrollAnchor = window.scrollY;
       let lastScrollY = window.scrollY;
+      let isScrollingDown = false;
+      const SCROLL_DEAD_ZONE = 8; 
+
+      let handleScroll: (() => void) | undefined;
       if (mainHeader) {
-        window.addEventListener("scroll", () => {
+        handleScroll = () => {
           const currentScrollY = window.scrollY;
+          
           if (currentScrollY <= 50) {
             mainHeader.classList.remove("scrolled", "scroll-down");
+            isScrollingDown = false;
           } else {
             mainHeader.classList.add("scrolled");
-            mainHeader.classList.toggle("scroll-down", currentScrollY > lastScrollY);
+            
+            if (currentScrollY > lastScrollY) {
+              // Scrolling down
+              if (!isScrollingDown && currentScrollY > scrollAnchor + SCROLL_DEAD_ZONE) {
+                mainHeader.classList.add("scroll-down");
+                isScrollingDown = true;
+              }
+              if (isScrollingDown) {
+                scrollAnchor = currentScrollY; // Anchor at the bottom-most point
+              }
+            } else if (currentScrollY < lastScrollY) {
+              // Scrolling up
+              if (isScrollingDown && currentScrollY < scrollAnchor - SCROLL_DEAD_ZONE) {
+                mainHeader.classList.remove("scroll-down");
+                isScrollingDown = false;
+              }
+              if (!isScrollingDown) {
+                scrollAnchor = currentScrollY; // Anchor at the top-most point
+              }
+            }
           }
           lastScrollY = currentScrollY;
-        });
+        };
+        window.addEventListener("scroll", handleScroll);
       }
 
       // ── 8. Case Study Hover Cursor ──
@@ -229,6 +274,11 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
           });
         });
       }
+
+      return () => {
+        if (handleScroll) window.removeEventListener("scroll", handleScroll);
+        resizeObserver.disconnect();
+      };
     }, containerRef);
 
     return () => ctx.revert();

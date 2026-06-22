@@ -9,14 +9,7 @@ interface MobileNavProps {
 }
 
 export default function MobileNav({ activeSection, isOpen, onClose }: MobileNavProps) {
-  const getIcon = (key: string) => {
-    switch (key) {
-      case "about": return <User size={24} />;
-      case "services": return <Briefcase size={24} />;
-      case "work": return <LayoutGrid size={24} />;
-      default: return null;
-    }
-  };
+
 
   return (
     <div className={`fixed inset-0 z-0 bg-zinc-950 dark:bg-black flex flex-col justify-between py-12 px-6 overflow-hidden transition-opacity duration-700 ${isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}>
@@ -42,13 +35,10 @@ export default function MobileNav({ activeSection, isOpen, onClose }: MobileNavP
               key={link.sectionKey}
               href={link.href}
               onClick={onClose}
-              className={`flex items-center gap-6 text-lg font-bold uppercase tracking-widest transition-colors ${
+              className={`flex items-center text-lg font-bold uppercase tracking-widest transition-colors ${
                 isActive ? "text-primary" : "text-white/60 hover:text-white"
               }`}
             >
-              <div className={`${isActive ? "text-primary" : "text-white/40"}`}>
-                {getIcon(link.sectionKey)}
-              </div>
               {link.label}
             </a>
           );

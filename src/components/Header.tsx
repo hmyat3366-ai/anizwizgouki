@@ -16,7 +16,7 @@ export default function Header({ activeSection, onOpenMobileNav }: HeaderProps) 
   return (
     <header
       id="main-header"
-      className="fixed top-0 left-0 w-full px-6 md:px-10 py-6 flex items-center justify-between z-[100] pointer-events-none"
+      className="sticky top-0 left-0 w-full px-6 md:px-10 py-6 flex items-center justify-between z-[100] pointer-events-none"
     >
       {/* Logo */}
       <div
@@ -35,7 +35,7 @@ export default function Header({ activeSection, onOpenMobileNav }: HeaderProps) 
       {/* Center Nav (Desktop Only) */}
       <nav
         id="center-nav"
-        className="hidden lg:flex absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 items-center bg-background/80 backdrop-blur-xl rounded-full p-1.5 border border-gray-200/50 dark:border-border/50 shadow-sm pointer-events-auto transition-all duration-500 overflow-hidden"
+        className="hidden md:flex absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 items-center bg-background/80 backdrop-blur-xl rounded-full p-1.5 border border-gray-200/50 dark:border-border/50 shadow-sm pointer-events-auto transition-all duration-500 overflow-hidden"
       >
         {/* Nav Links */}
         <div id="nav-state-1" className="flex items-center overflow-hidden">
@@ -68,7 +68,7 @@ export default function Header({ activeSection, onOpenMobileNav }: HeaderProps) 
         <a
           id="nav-state-2"
           href="#/"
-          className="hidden md:flex items-center overflow-hidden pointer-events-none group rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
+          className="flex items-center overflow-hidden pointer-events-none group rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300"
         >
           <div className="px-6 py-2.5 flex items-center gap-3 min-w-max">
             <span className="relative flex h-2 w-2">
@@ -104,7 +104,7 @@ export default function Header({ activeSection, onOpenMobileNav }: HeaderProps) 
       <a
         id="header-cta"
         href="#contact"
-        className="hidden lg:flex pointer-events-auto group bg-gray-900 dark:bg-white text-background px-8 py-3.5 rounded-full text-[13px] font-bold uppercase tracking-widest shadow-lg transform transition-all duration-500 ease-[cubic-bezier(0.5,0,0,1)] hover:scale-105 active:scale-95 items-center"
+        className="hidden md:flex pointer-events-auto group bg-gray-900 dark:bg-white text-background px-8 py-3.5 rounded-full text-[13px] font-bold uppercase tracking-widest shadow-lg transform transition-all duration-500 ease-[cubic-bezier(0.5,0,0,1)] hover:scale-105 active:scale-95 items-center"
       >
         <div className="relative overflow-hidden h-5 flex items-center">
           <span className="flex items-center gap-2 transition-transform duration-500 group-hover:-translate-y-[150%]">
@@ -119,7 +119,7 @@ export default function Header({ activeSection, onOpenMobileNav }: HeaderProps) 
       {/* Mobile Hamburger Button */}
       <button
         onClick={onOpenMobileNav}
-        className="lg:hidden pointer-events-auto w-12 h-12 rounded-full border border-border bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors shadow-sm"
+        className="md:hidden pointer-events-auto w-12 h-12 rounded-full border border-border bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors shadow-sm"
       >
         <Menu size={20} />
       </button>
