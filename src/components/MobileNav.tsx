@@ -1,5 +1,5 @@
 import { NAV_LINKS } from "../data/navigation";
-import { X, User, Briefcase, LayoutGrid } from "lucide-react";
+import { X } from "lucide-react";
 import { asset } from "../lib/asset";
 
 interface MobileNavProps {
