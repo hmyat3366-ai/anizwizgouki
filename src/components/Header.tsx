@@ -1,5 +1,6 @@
 import { NAV_LINKS } from "../data/navigation";
 import { ArrowIcon } from "./icons";
+import { asset } from "../lib/asset";
 
 interface HeaderProps {
   activeSection: string;
@@ -22,7 +23,7 @@ export default function Header({ activeSection }: HeaderProps) {
       >
         <div className="relative overflow-hidden rounded-full w-12 h-12 border border-border">
           <img
-            src="./logo.png"
+            src={asset("logo.png")}
             alt="Avatar"
             className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500"
           />

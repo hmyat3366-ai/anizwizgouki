@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { MessageSquareText, X, Send, User, Bot, Sparkles, Code, Briefcase } from "lucide-react";
+import { X, Send, User, Bot, Sparkles, Code, Briefcase } from "lucide-react";
 
 // Initialize Gemini API
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";

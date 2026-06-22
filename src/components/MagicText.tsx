@@ -25,7 +25,7 @@ export default function MagicText() {
         setDisplayText(
           targetText
             .split("")
-            .map((char, i) =>
+            .map((_char, i) =>
               i < iteration
                 ? targetText[i]
                 : SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)]

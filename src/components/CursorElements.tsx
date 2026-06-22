@@ -1,4 +1,5 @@
 import { DiagonalArrowIcon } from "./icons";
+import { asset } from "../lib/asset";
 
 /**
  * Cursor follower elements rendered at root level.
@@ -11,7 +12,7 @@ export default function CursorElements() {
       {/* Image trail that follows cursor on skill accordion hover */}
       <img
         id="cursor-trail-img"
-        src="./12.jpg"
+        src={asset("12.jpg")}
         className="fixed pointer-events-none z-50 w-64 aspect-video object-cover rounded-xl shadow-2xl opacity-0 scale-50 transition-all duration-200 ease-out mix-blend-normal"
         style={{ left: "0", top: "0" }}
       />

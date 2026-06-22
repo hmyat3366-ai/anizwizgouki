@@ -1,3 +1,5 @@
+import { asset } from "../lib/asset";
+
 /** The floating 3D flip card that morphs across sections via GSAP. */
 export default function MagicalImage() {
   return (
@@ -14,7 +16,7 @@ export default function MagicalImage() {
         {/* Front Face (Hero Image) */}
         <div className="absolute inset-0 w-full h-full" style={{ backfaceVisibility: "hidden" }}>
           <img
-            src="./12.jpg"
+            src={asset("12.jpg")}
             className="w-full h-full object-cover object-top rounded-[2rem] xl:rounded-[2.5rem] bg-gray-200 dark:bg-gray-800"
             id="magical-img-src"
           />
@@ -43,7 +45,7 @@ export default function MagicalImage() {
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
           <img
-            src="./User Research.jpg"
+            src={asset("User Research.jpg")}
             className="w-full h-full object-cover object-center rounded-[2rem] xl:rounded-[2.5rem] bg-gray-200 dark:bg-gray-800"
           />
         </div>

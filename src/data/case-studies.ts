@@ -1,4 +1,5 @@
 import type { CaseStudy } from "../types";
+import { asset } from "../lib/asset";
 
 /**
  * All case study data keyed by slug.
@@ -22,7 +23,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       "https://via.placeholder.com/800x1200/f3f4f6/a8a29e?text=Mobile+Property+Details",
       "https://via.placeholder.com/1200x600/f3f4f6/a8a29e?text=Typography+%26+Components",
     ],
-    figmaScreenshot: "./aura-figma.png",
+    figmaScreenshot: asset("aura-figma.png"),
     figmaProcess: [
       { step: "01", title: "Ideation & Low-Fidelity", desc: "Collaborated with the team to brainstorm core user flows, followed by rapid low-fidelity wireframing to establish the 12-column structural grid." },
       { step: "02", title: "High-Fidelity Design", desc: "Applied a monochromatic palette and editorial typography (mix of serif and sans-serif) to evoke luxury." },
@@ -35,8 +36,8 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
     ],
     keyMetric: "Learned to bridge the full design-to-code pipeline — from Figma wireframes to a deployed React app with scroll-driven animations.",
     highlightColor: "bg-[#00FF66] text-black",
-    image: "./Auraimage.jpg",
-    aiScreenshot: "./aura-ai-process.png",
+    image: asset("Auraimage.jpg"),
+    aiScreenshot: asset("aura-ai-process.png"),
     url: "https://aurarealestate.vercel.app/",
     figmaLink: "https://www.figma.com/design/gBHrwJxQIJzzFy1iCgE4PI/real-estate?node-id=0-1&p=f&t=BQVu8MNRAkkaHTwG-0",
   },
@@ -57,8 +58,8 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       "https://via.placeholder.com/800x1000/f3f4f6/a8a29e?text=Mobile+Wallet+View",
       "https://via.placeholder.com/1000x800/f3f4f6/a8a29e?text=Custom+Chart+Components",
     ],
-    figmaScreenshot: "./dmar-figma-process.png",
-    aiScreenshot: "./dmar-live-preview.webp",
+    figmaScreenshot: asset("dmar-figma-process.png"),
+    aiScreenshot: asset("dmar-live-preview.webp"),
     figmaProcess: [
       { step: "01", title: "Strategy & Low-Fidelity", desc: "Brainstormed data organization strategies with stakeholders, creating low-fidelity wireframes to map out complex dashboard widgets." },
       { step: "02", title: "High-Fidelity Design", desc: "Created a robust component library tailored for dynamic charting, applying a neon-accented dark mode." },
@@ -71,7 +72,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
     ],
     keyMetric: "Built my first complete design system and learned to integrate complex Chart.js visualizations with custom Figma components.",
     highlightColor: "bg-[#A742FF] text-white",
-    image: "./DMAR.png",
+    image: asset("DMAR.png"),
     url: "https://dmars.vercel.app/",
     figmaLink: "https://www.figma.com/design/yVENJJHh1wcJb0jq5xVu1F/DMAR-web-view-and-Mobile-view?node-id=4102-259&p=f&t=BQVu8MNRAkkaHTwG-0",
   },
@@ -92,7 +93,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       "https://via.placeholder.com/900x1200/f3f4f6/a8a29e?text=Hover+State+Exploration",
       "https://via.placeholder.com/1400x700/f3f4f6/a8a29e?text=Brutalist+Typography+Grid",
     ],
-    figmaScreenshot: "./skyline-figma-process.png",
+    figmaScreenshot: asset("skyline-figma-process.png"),
     iframeUrl: "https://skylineagc.vercel.app/",
     figmaProcess: [
       { step: "01", title: "Concept & Low-Fidelity", desc: "Team ideation sessions focused on breaking traditional web layouts, sketching out aggressive low-fidelity concepts for the interactive poster experience." },
@@ -106,7 +107,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
     ],
     keyMetric: "Pushed my creative boundaries with brutalist design and mastered GSAP ScrollTrigger for production-level scroll animations.",
     highlightColor: "bg-[#FF3366] text-white",
-    image: "./Gemini_Generated_Image_.jpg",
+    image: asset("Gemini_Generated_Image_.jpg"),
     url: "https://skylineagc.vercel.app/",
     figmaLink: "https://www.figma.com/design/Ut2PAlntXyzo3ARE5Vdfiz/SkyLine?node-id=3311-2&p=f&t=BQVu8MNRAkkaHTwG-0",
   },
