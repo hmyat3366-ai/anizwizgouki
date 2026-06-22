@@ -1,6 +1,7 @@
 import { NAV_LINKS } from "../data/navigation";
 import { ArrowIcon } from "./icons";
 import { asset } from "../lib/asset";
+import MobileNav from "./MobileNav";
 
 interface HeaderProps {
   activeSection: string;
@@ -30,10 +31,10 @@ export default function Header({ activeSection }: HeaderProps) {
         </div>
       </div>
 
-      {/* Center Nav */}
+      {/* Center Nav (Desktop Only) */}
       <nav
         id="center-nav"
-        className="fixed bottom-6 md:absolute md:bottom-auto md:top-1/2 md:-translate-y-1/2 left-1/2 -translate-x-1/2 flex items-center bg-background/80 backdrop-blur-xl rounded-full p-1.5 border border-gray-200/50 dark:border-border/50 shadow-sm pointer-events-auto transition-all duration-500 overflow-hidden"
+        className="hidden md:flex absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 items-center bg-background/80 backdrop-blur-xl rounded-full p-1.5 border border-gray-200/50 dark:border-border/50 shadow-sm pointer-events-auto transition-all duration-500 overflow-hidden"
       >
         {/* Nav Links */}
         <div id="nav-state-1" className="flex items-center overflow-hidden">
@@ -113,6 +114,9 @@ export default function Header({ activeSection }: HeaderProps) {
           </span>
         </div>
       </a>
+
+      {/* Mobile Nav Overlay */}
+      <MobileNav activeSection={activeSection} />
     </header>
   );
 }
