@@ -24,13 +24,13 @@ export default function HeroSection() {
           </span>
           <div className="w-full flex justify-center lg:justify-end relative h-[60px] sm:h-[100px] md:h-[120px] lg:h-[80px] xl:h-[110px] 2xl:h-[150px]" dir="rtl">
             <MorphingText
-              texts={["JR.UI/UX", "JR.UI/UX"]}
+              texts={["JR.UI/UX", "AI PRODUCT"]}
               className="font-display text-[50px] sm:text-[80px] md:text-[100px] lg:text-[70px] xl:text-[90px] 2xl:text-[130px] leading-none font-bold text-foreground uppercase tracking-tighter w-full absolute left-0 top-0 h-full !mx-0 text-center lg:text-right whitespace-nowrap px-2"
             />
           </div>
           {/* Invisible spacer to balance the right column's paragraph */}
           <p className="hidden lg:block max-w-[280px] text-sm sm:text-base mt-6 leading-relaxed font-medium lg:mr-1 invisible opacity-0 select-none pointer-events-none" aria-hidden="true">
-            I'm a passionate Jr. UI/UX Designer, eager to craft user-centered experiences from design to code.
+            I'm a passionate Jr. UI/UX & AI Product Designer, eager to craft user-centered experiences from design to code.
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export default function HeroSection() {
             />
           </div>
           <p className="max-w-[280px] text-muted-foreground text-sm sm:text-base mt-6 leading-relaxed font-medium lg:ml-1">
-            I'm a passionate Jr. UI/UX Designer, eager to craft user-centered experiences from design to code.
+            I'm a passionate Jr. UI/UX & AI Product Designer, eager to craft user-centered experiences from design to code.
           </p>
         </div>
       </div>
