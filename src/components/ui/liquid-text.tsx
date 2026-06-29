@@ -9,7 +9,7 @@ const cooldownTime = 0.5;
 const useMorphingText = (texts: string[]) => {
   const textIndexRef = useRef(0);
   const morphRef = useRef(0);
-  const cooldownRef = useRef(0);
+  const cooldownRef = useRef(2.5); // 2.5 seconds initial delay
   const timeRef = useRef(new Date());
 
   const text1Ref = useRef<HTMLSpanElement>(null);
@@ -54,13 +54,16 @@ const useMorphingText = (texts: string[]) => {
   const doCooldown = useCallback(() => {
     morphRef.current = 0;
     const [current1, current2] = [text1Ref.current, text2Ref.current];
-    if (current1 && current2) {
+    if (current1 && current2 && texts && texts.length > 0) {
       current2.style.filter = "none";
       current2.style.opacity = "100%";
       current1.style.filter = "none";
       current1.style.opacity = "0%";
+      
+      current2.textContent = texts[textIndexRef.current % texts.length];
+      current1.textContent = texts[(textIndexRef.current + 1) % texts.length];
     }
-  }, []);
+  }, [texts]);
 
   useEffect(() => {
     let animationFrameId: number;
