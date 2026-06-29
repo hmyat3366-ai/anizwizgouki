@@ -39,13 +39,17 @@ export default function MagicalImage() {
           <div id="about-dot" className="absolute left-4 lg:-left-4 bottom-1/3 w-4 h-4 bg-primary rounded-full shadow-lg opacity-0 transition-opacity duration-300" />
         </div>
 
-        {/* Back Face (Skills Image) */}
+        {/* Back Face (Skills Video) */}
         <div
           className="absolute inset-0 w-full h-full"
           style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
-          <img
-            src={asset("User Research.jpg")}
+          <video
+            src={asset("video-generation.mp4")}
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover object-center rounded-[2rem] xl:rounded-[2.5rem] bg-gray-200 dark:bg-gray-800"
           />
         </div>
