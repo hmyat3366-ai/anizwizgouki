@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { ChatMessage, getGeminiChatResponse } from "../services/gemini";
+import { getGeminiChatResponse, type ChatMessage } from "../services/gemini";
 
 type Language = "en" | "my";
 
