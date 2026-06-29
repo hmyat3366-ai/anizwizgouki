@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function SplashScreen() {
+  const [isMounted, setIsMounted] = useState(false);
   const [isHiding, setIsHiding] = useState(false);
   const [isRemoved, setIsRemoved] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -9,6 +10,11 @@ export default function SplashScreen() {
     // Lock scroll on mount
     document.body.style.overflow = "hidden";
 
+    // Trigger enter animation slightly after mount for smooth transition
+    const mountTimeout = setTimeout(() => {
+      setIsMounted(true);
+    }, 50);
+
     // Simulate loading progress
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
@@ -16,25 +22,26 @@ export default function SplashScreen() {
           clearInterval(progressInterval);
           return 100;
         }
-        return prev + 5; // increment by 5% every 50ms
+        return prev + 4; // slightly slower
       });
     }, 50);
 
-    // Hide splash screen after 1.5 seconds
+    // Hide splash screen after 2.2 seconds (giving time for the text animation)
     const hideTimeout = setTimeout(() => {
       setIsHiding(true);
       // Re-enable scroll when starting to hide
       document.body.style.overflow = "";
-    }, 1500);
+    }, 2200);
 
     // Completely remove from DOM after fade out transition (700ms)
     const removeTimeout = setTimeout(() => {
       setIsRemoved(true);
-    }, 2200);
+    }, 2900);
 
     return () => {
       document.body.style.overflow = "";
       clearInterval(progressInterval);
+      clearTimeout(mountTimeout);
       clearTimeout(hideTimeout);
       clearTimeout(removeTimeout);
     };
@@ -49,24 +56,53 @@ export default function SplashScreen() {
       }`}
     >
       <div className="flex flex-col items-center relative z-10">
-        <h1 className="font-display text-4xl md:text-6xl font-bold tracking-tight text-foreground uppercase flex items-center gap-2">
-          H<span className="text-primary animate-pulse">u</span>ge
+        
+        {/* Animated Title */}
+        <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-widest uppercase flex flex-wrap justify-center gap-x-4 md:gap-x-6 overflow-hidden drop-shadow-xl">
+          {["Aniz", "Wiz", "Gouki"].map((word, i) => (
+            <span 
+              key={word} 
+              className={`transform transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] ${
+                isMounted && !isHiding 
+                  ? "translate-y-0 opacity-100 blur-0 scale-100" 
+                  : "translate-y-12 opacity-0 blur-md scale-95"
+              }`}
+              style={{ transitionDelay: `${i * 150 + 100}ms` }}
+            >
+              {word === "Wiz" ? (
+                <span className="text-primary relative inline-block">
+                  {word}
+                  {/* Small glowing dot on Wiz */}
+                  <span className="absolute -right-2 top-0 w-2 h-2 rounded-full bg-primary animate-ping opacity-75" />
+                  <span className="absolute -right-2 top-0 w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_currentColor]" />
+                </span>
+              ) : (
+                word
+              )}
+            </span>
+          ))}
         </h1>
         
-        <p className="mt-2 text-sm text-muted-foreground uppercase tracking-widest font-medium">
+        <p className={`mt-6 text-sm md:text-base text-muted-foreground uppercase tracking-[0.3em] font-medium transition-all duration-1000 ease-out delay-700 ${
+          isMounted && !isHiding ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        }`}>
           AI Product Designer
         </p>
 
-        <div className="mt-10 w-48 md:w-64 h-[2px] bg-border relative overflow-hidden rounded-full">
+        <div className={`mt-12 w-56 md:w-72 h-[2px] bg-border relative overflow-hidden rounded-full transition-all duration-1000 ease-out delay-[900ms] ${
+          isMounted && !isHiding ? "opacity-100 scale-100" : "opacity-0 scale-x-0"
+        }`}>
           <div 
-            className="absolute top-0 left-0 h-full bg-primary transition-all duration-75 ease-linear rounded-full"
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary/50 via-primary to-primary/50 transition-all duration-75 ease-linear rounded-full shadow-[0_0_8px_var(--primary)]"
             style={{ width: `${progress}%` }}
           />
         </div>
       </div>
       
       {/* Optional ambient background glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[120px] pointer-events-none transition-opacity duration-1000 delay-500 ${
+        isMounted && !isHiding ? "opacity-100" : "opacity-0"
+      }`} />
     </div>
   );
 }
