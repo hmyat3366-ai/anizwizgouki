@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { MorphingText } from "./liquid-text";
 
 export default function SplashScreen() {
   const [isMounted, setIsMounted] = useState(false);
@@ -15,28 +16,28 @@ export default function SplashScreen() {
       setIsMounted(true);
     }, 50);
 
-    // Simulate loading progress
+    // Simulate loading progress over ~4 seconds
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(progressInterval);
           return 100;
         }
-        return prev + 4; // slightly slower
+        return prev + 1; // 1% every 40ms = 4 seconds total
       });
-    }, 50);
+    }, 40);
 
-    // Hide splash screen after 2.2 seconds (giving time for the text animation)
+    // Hide splash screen after 4.5 seconds (giving time for the morph text animation)
     const hideTimeout = setTimeout(() => {
       setIsHiding(true);
       // Re-enable scroll when starting to hide
       document.body.style.overflow = "";
-    }, 2200);
+    }, 4500);
 
     // Completely remove from DOM after fade out transition (700ms)
     const removeTimeout = setTimeout(() => {
       setIsRemoved(true);
-    }, 2900);
+    }, 5200);
 
     return () => {
       document.body.style.overflow = "";
@@ -83,11 +84,14 @@ export default function SplashScreen() {
           ))}
         </h1>
         
-        <p className={`mt-6 text-sm md:text-base text-muted-foreground uppercase tracking-[0.3em] font-medium transition-all duration-1000 ease-out delay-700 ${
+        <div className={`mt-6 w-full flex justify-center transition-all duration-1000 ease-out delay-700 ${
           isMounted && !isHiding ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}>
-          AI Product Designer
-        </p>
+          <MorphingText 
+            texts={["JUNIOR UI/UX DESIGNER", "AI PRODUCT DESIGNER"]} 
+            className="!h-8 md:!h-10 !text-xs sm:!text-sm md:!text-base text-muted-foreground uppercase tracking-[0.2em] md:tracking-[0.3em] font-medium !leading-none"
+          />
+        </div>
 
         <div className={`mt-12 w-56 md:w-72 h-[2px] bg-border relative overflow-hidden rounded-full transition-all duration-1000 ease-out delay-[900ms] ${
           isMounted && !isHiding ? "opacity-100 scale-100" : "opacity-0 scale-x-0"
