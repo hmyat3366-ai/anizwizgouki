@@ -25,7 +25,7 @@ export default function HeroSection() {
           <div className="w-full flex justify-center lg:justify-end relative h-[60px] sm:h-[100px] md:h-[120px] lg:h-[80px] xl:h-[110px] 2xl:h-[150px]" dir="rtl">
             <MorphingText
               texts={["JR.UI/UX", "JR.UI/UX"]}
-              className="font-display text-[50px] sm:text-[90px] md:text-[110px] lg:text-[70px] xl:text-[100px] 2xl:text-[140px] leading-none font-bold text-foreground uppercase tracking-tighter w-max absolute left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-0 top-0 h-full !mx-0 text-center lg:text-right whitespace-nowrap"
+              className="font-display text-[50px] sm:text-[80px] md:text-[100px] lg:text-[70px] xl:text-[90px] 2xl:text-[130px] leading-none font-bold text-foreground uppercase tracking-tighter w-full absolute left-0 top-0 h-full !mx-0 text-center lg:text-right whitespace-nowrap px-2"
             />
           </div>
           {/* Invisible spacer to balance the right column's paragraph */}
@@ -40,14 +40,14 @@ export default function HeroSection() {
         </div>
 
         {/* Right: Role Title + Intro */}
-        <div className="justify-self-center lg:justify-self-start flex flex-col items-center lg:items-start text-center lg:text-left mt-8 lg:mt-0 lg:pt-16 reveal hero-parallax w-full relative">
+        <div className="justify-self-center lg:justify-self-start flex flex-col items-center lg:items-start text-center lg:text-left mt-8 lg:mt-0 lg:pt-16 reveal hero-parallax w-full relative overflow-visible">
           <span className="hidden lg:block text-xs md:text-sm tracking-[0.15em] font-semibold uppercase mb-3 invisible opacity-0 select-none pointer-events-none w-full" aria-hidden="true">
             Spacer
           </span>
           <div className="w-full flex justify-center lg:justify-start relative h-[60px] sm:h-[100px] md:h-[120px] lg:h-[80px] xl:h-[110px] 2xl:h-[150px]">
             <MorphingText
               texts={["DESIGNER", "DESIGNER"]}
-              className="font-display text-[50px] sm:text-[90px] md:text-[110px] lg:text-[70px] xl:text-[100px] 2xl:text-[140px] leading-none font-bold text-foreground uppercase tracking-tighter w-max absolute left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 top-0 h-full !mx-0 text-center lg:text-left whitespace-nowrap"
+              className="font-display text-[50px] sm:text-[80px] md:text-[100px] lg:text-[70px] xl:text-[90px] 2xl:text-[130px] leading-none font-bold text-foreground uppercase tracking-tighter w-full absolute left-0 top-0 h-full !mx-0 text-center lg:text-left whitespace-nowrap px-2"
             />
           </div>
           <p className="max-w-[280px] text-muted-foreground text-sm sm:text-base mt-6 leading-relaxed font-medium lg:ml-1">
