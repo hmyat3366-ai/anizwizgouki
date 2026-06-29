@@ -22,6 +22,7 @@ import CursorElements from "./components/CursorElements";
 import ThemeToggle from "./components/ThemeToggle";
 import CaseStudyModal from "./components/CaseStudyModal";
 import ChatAgent from "./components/ui/chat-agent";
+import SplashScreen from "./components/ui/SplashScreen";
 
 // Section components
 import HeroSection from "./components/sections/HeroSection";
@@ -46,6 +47,9 @@ export default function App() {
 
   return (
     <div className="relative w-full min-h-screen bg-foreground overflow-x-clip">
+      {/* 0. Splash Screen */}
+      <SplashScreen />
+
       {/* 1. Underlying Mobile Nav Menu */}
       <MobileNav 
         isOpen={isMobileNavOpen} 
