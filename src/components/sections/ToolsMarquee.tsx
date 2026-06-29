@@ -11,7 +11,7 @@ export default function ToolsMarquee() {
             .flat()
             .map((item, index) => (
               <span
-                key={index}
+                key={`${item.name}-${index}`}
                 className="mx-6 text-xl md:text-2xl font-display font-bold tracking-widest uppercase flex items-center"
               >
                 <item.Icon /> {item.name}{" "}
