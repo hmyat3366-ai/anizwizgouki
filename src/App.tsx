@@ -74,7 +74,7 @@ export default function App() {
         {/* Non-sticky absolute layer for Back to Resume icon, scrolls away normally */}
         <div className="absolute top-0 left-0 w-full px-6 md:px-10 py-6 flex items-center justify-between z-[90] pointer-events-none">
           <div /> {/* Empty left side */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-8 md:gap-10">
             <a
               href="https://awgresume.vercel.app/"
               title="Back to Resume"
@@ -82,7 +82,7 @@ export default function App() {
             >
               <User size={20} className="group-hover:scale-110 transition-transform duration-300" />
             </a>
-            <div className="w-12 md:w-[150px] h-12" /> {/* Spacer for the Hamburger/CTA */}
+            <div className="w-12 md:w-[160px] h-12" /> {/* Spacer for the Hamburger/CTA */}
           </div>
         </div>
 
