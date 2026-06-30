@@ -103,12 +103,6 @@ export default function Header({ activeSection, onOpenMobileNav }: HeaderProps) 
       {/* Desktop CTA Button */}
       <div className="hidden md:flex items-center gap-4 pointer-events-auto">
         <a
-          href="https://awgresume.vercel.app/"
-          className="group flex items-center justify-center bg-transparent border border-gray-900 dark:border-white text-gray-900 dark:text-white px-8 py-3.5 rounded-full text-[13px] font-bold uppercase tracking-widest hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-background transition-colors duration-300"
-        >
-          Back to Resume
-        </a>
-        <a
           id="header-cta"
           href="#contact"
           className="group bg-gray-900 dark:bg-white text-background px-8 py-3.5 rounded-full text-[13px] font-bold uppercase tracking-widest shadow-lg transform transition-all duration-500 ease-[cubic-bezier(0.5,0,0,1)] hover:scale-105 active:scale-95 flex items-center"

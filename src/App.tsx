@@ -9,6 +9,7 @@
  * All data, logic, icons, and section markup live in their own modules.
  */
 import { useRef, useState } from "react";
+import { ArrowLeft } from "lucide-react";
 
 // Hooks
 import { useActiveSection } from "./hooks/useActiveSection";
@@ -69,6 +70,21 @@ export default function App() {
         {/* Floating elements (positioned absolutely / fixed) */}
         <MagicalImage />
         <CursorElements />
+
+        {/* Non-sticky absolute layer for Back to Resume icon, scrolls away normally */}
+        <div className="absolute top-0 left-0 w-full px-6 md:px-10 py-6 flex items-center justify-between z-[90] pointer-events-none">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12" /> {/* Spacer for the logo */}
+            <a
+              href="https://awgresume.vercel.app/"
+              title="Back to Resume"
+              className="pointer-events-auto flex items-center justify-center w-12 h-12 rounded-full border border-gray-200/50 dark:border-white/20 bg-background/50 backdrop-blur-md hover:bg-gray-100 dark:hover:bg-white/10 transition-colors duration-300 text-foreground shadow-sm group"
+            >
+              <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform duration-300" />
+            </a>
+          </div>
+        </div>
+
         <Header activeSection={activeSection} onOpenMobileNav={() => setIsMobileNavOpen(true)} />
 
         {/* Main content sections */}
