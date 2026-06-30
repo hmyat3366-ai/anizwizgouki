@@ -46,7 +46,13 @@ export default function MobileNav({ activeSection, isOpen, onClose }: MobileNavP
       </div>
 
       {/* Bottom CTA */}
-      <div className="w-full max-w-[65vw] pb-8">
+      <div className="w-full max-w-[65vw] pb-8 flex flex-col gap-4">
+        <a
+          href="https://awgresume.vercel.app/"
+          className="bg-transparent border border-white/20 text-white hover:bg-white/10 px-6 py-4 rounded-full font-bold uppercase tracking-widest text-xs flex items-center justify-center w-full transition-colors"
+        >
+          Back to Resume
+        </a>
         <a
           href="#contact"
           onClick={onClose}

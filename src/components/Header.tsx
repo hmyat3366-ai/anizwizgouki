@@ -101,20 +101,28 @@ export default function Header({ activeSection, onOpenMobileNav }: HeaderProps) 
       </nav>
 
       {/* Desktop CTA Button */}
-      <a
-        id="header-cta"
-        href="#contact"
-        className="hidden md:flex pointer-events-auto group bg-gray-900 dark:bg-white text-background px-8 py-3.5 rounded-full text-[13px] font-bold uppercase tracking-widest shadow-lg transform transition-all duration-500 ease-[cubic-bezier(0.5,0,0,1)] hover:scale-105 active:scale-95 items-center"
-      >
-        <div className="relative overflow-hidden h-5 flex items-center">
-          <span className="flex items-center gap-2 transition-transform duration-500 group-hover:-translate-y-[150%]">
-            Let's Talk <ArrowIcon />
-          </span>
-          <span className="absolute left-0 flex items-center gap-2 transition-transform duration-500 translate-y-[150%] group-hover:translate-y-0">
-            Let's Talk <ArrowIcon className="w-3.5 h-3.5 transform -rotate-45" />
-          </span>
-        </div>
-      </a>
+      <div className="hidden md:flex items-center gap-4 pointer-events-auto">
+        <a
+          href="https://awgresume.vercel.app/"
+          className="group flex items-center justify-center bg-transparent border border-gray-900 dark:border-white text-gray-900 dark:text-white px-8 py-3.5 rounded-full text-[13px] font-bold uppercase tracking-widest hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-background transition-colors duration-300"
+        >
+          Back to Resume
+        </a>
+        <a
+          id="header-cta"
+          href="#contact"
+          className="group bg-gray-900 dark:bg-white text-background px-8 py-3.5 rounded-full text-[13px] font-bold uppercase tracking-widest shadow-lg transform transition-all duration-500 ease-[cubic-bezier(0.5,0,0,1)] hover:scale-105 active:scale-95 flex items-center"
+        >
+          <div className="relative overflow-hidden h-5 flex items-center">
+            <span className="flex items-center gap-2 transition-transform duration-500 group-hover:-translate-y-[150%]">
+              Let's Talk <ArrowIcon />
+            </span>
+            <span className="absolute left-0 flex items-center gap-2 transition-transform duration-500 translate-y-[150%] group-hover:translate-y-0">
+              Let's Talk <ArrowIcon className="w-3.5 h-3.5 transform -rotate-45" />
+            </span>
+          </div>
+        </a>
+      </div>
 
       {/* Mobile Hamburger Button */}
       <button
