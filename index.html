@@ -25,21 +25,6 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Auto-detect logged-in users -->
-    <script>
-      try {
-        var storedUser = localStorage.getItem('sb-YOUR_SUPABASE_ID-auth-token');
-        if (storedUser) {
-          var authData = JSON.parse(storedUser);
-          var u = authData.user;
-          if (u) {
-            window.XiaChatVisitorName = u.user_metadata?.name || u.user_metadata?.full_name || u.email || '';
-            window.XiaChatVisitorEmail = u.email || '';
-          }
-        }
-      } catch(e) {}
-    </script>
-
     <!-- Xia Chat Widget -->
     <script
       src="https://xiachat.onrender.com/public/widget.js"
