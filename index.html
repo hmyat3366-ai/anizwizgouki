@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aniz Wiz Gouki | Jr. UI/UX Designer</title>
+    <meta name="description" content="Portfolio of Aniz Wiz Gouki, a passionate Jr. UI/UX Designer crafting user-centered experiences from design to code." />
+    <meta property="og:title" content="Aniz Wiz Gouki | Jr. UI/UX Designer" />
+    <meta property="og:description" content="Portfolio of Aniz Wiz Gouki, a passionate Jr. UI/UX Designer crafting user-centered experiences from design to code." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/logo.png" />
+
+    <!-- ⚡ Time-based theme init — runs before React renders to prevent flash -->
+    <script>
+      (function () {
+        var hour = new Date().getHours();
+        // Dark: 12:00 PM (noon) → 11:59 PM | Light: 12:00 AM → 11:59 AM
+        if (hour >= 12) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- Auto-detect logged-in users -->
+    <script>
+      try {
+        var storedUser = localStorage.getItem('sb-YOUR_SUPABASE_ID-auth-token');
+        if (storedUser) {
+          var authData = JSON.parse(storedUser);
+          var u = authData.user;
+          if (u) {
+            window.XiaChatVisitorName = u.user_metadata?.name || u.user_metadata?.full_name || u.email || '';
+            window.XiaChatVisitorEmail = u.email || '';
+          }
+        }
+      } catch(e) {}
+    </script>
+
+    <!-- Xia Chat Widget -->
+    <script
+      src="https://xiachat.onrender.com/public/widget.js"
+      data-workspace-id="6a4bae09038d759681a2aa20">
+    </script>
+  </body>
+</html>
