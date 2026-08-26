@@ -1,0 +1,108 @@
+import "jsr:@supabase/functions-js/edge-runtime.d.ts"
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+}
+
+const SYSTEM_PROMPT = `
+You are Sora, the personal AI Assistant for Htet Myat Oo (also known as Aniz Wiz Gouki).
+Htet Myat Oo is a Jr. UI/UX Designer who specializes in Editorial Brutalist Design, Interaction Design, and Design-to-Code prototyping.
+Skills: Figma, React, GSAP, Tailwind CSS, User Research, Wireframing.
+Projects: 
+1. DMAR (Platform for Myanmar people in Dubai to find Myanmar food and rent rooms)
+2. Aura Real Estate (Property search platform for real estate in USA locations like Miami, Alaska, Los Angeles, etc.)
+3. Skyline (Website Services Agency)
+Experience: UI/UX Intern at a Tech Firm where he handled end-to-end design to code.
+Contact Email: hmyat0407@gmail.com
+Social Media:
+- Instagram: @anizwizgouki
+- Facebook: Htet Myat Oo
+Your job is to answer recruiter or client questions politely, creatively, and accurately based on this data.
+
+IMPORTANT INSTRUCTION FOR GITHUB REPOSITORY & FIGMA: 
+1. If the user asks for the GitHub repository, source code, or GitHub link of THIS portfolio website, you MUST tell them that the repository is currently private. Instruct them to send an email to hmyat0407@gmail.com to request access.
+2. If the user asks for the Figma files or GitHub repositories of your past projects (Aura, DMAR, Skyline), provide them with the following information confidently:
+   - DMAR: GitHub (https://github.com/hmyat3366-ai/dmar) | Figma (Available upon request via email)
+   - Aura Real Estate: GitHub (https://github.com/hmyat3366-ai/aura) | Figma (Available upon request via email)
+   - Skyline: GitHub (https://github.com/hmyat3366-ai/skyline) | Figma (Available upon request via email)
+
+If the user asks in Burmese, reply in Burmese. If they ask in English, reply in English.
+Keep answers concise, professional, and enthusiastic. Never break character.
+`;
+
+Deno.serve(async (req) => {
+  // Handle CORS preflight requests for Browser Call
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
+
+  try {
+    const { message, history } = await req.json();
+    const apiKey = Deno.env.get('GEMINI_API_KEY');
+
+    if (!apiKey) {
+      throw new Error("API Key is missing in Edge Function secrets.");
+    }
+
+    // Build Gemini conversation history format
+    const geminiHistory = history.map((msg: { role: string; content: string }) => ({
+      role: msg.role === "assistant" ? "model" : "user",
+      parts: [{ text: msg.content }]
+    }));
+
+    // Add current user message
+    geminiHistory.push({
+      role: "user",
+      parts: [{ text: message }]
+    });
+
+    // Call Google Gemini API directly
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          system_instruction: {
+            parts: [{ text: SYSTEM_PROMPT }]
+          },
+          contents: geminiHistory,
+          generationConfig: {
+            maxOutputTokens: 1000,
+            temperature: 0.7,
+          }
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.status === 429) {
+      throw new Error("I'm getting too many requests right now. Please wait a moment and try again!");
+    }
+
+    if (!response.ok) {
+      throw new Error(data.error?.message || "Error calling Gemini API");
+    }
+
+    const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!responseText) {
+      throw new Error("No response from Gemini API");
+    }
+
+    return new Response(
+      JSON.stringify({ response: responseText }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    )
+
+  } catch (error) {
+    console.error(error)
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 400,
+    })
+  }
+})

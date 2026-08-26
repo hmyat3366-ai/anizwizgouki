@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aniz Wiz Gouki | Jr. UI/UX Designer</title>
+    <meta name="description" content="Portfolio of Aniz Wiz Gouki, a passionate Jr. UI/UX Designer crafting user-centered experiences from design to code." />
+    <meta property="og:title" content="Aniz Wiz Gouki | Jr. UI/UX Designer" />
+    <meta property="og:description" content="Portfolio of Aniz Wiz Gouki, a passionate Jr. UI/UX Designer crafting user-centered experiences from design to code." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/awg-logo.svg" />
+
+    <!-- ⚡ Time-based theme init — runs before React renders to prevent flash -->
+    <script>
+      (function () {
+        var hour = new Date().getHours();
+        // Dark: 12:00 PM (noon) → 11:59 PM | Light: 12:00 AM → 11:59 AM
+        if (hour >= 12) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- Xia Chat Widget -->
+    <script src="https://hmyat3366-ai.github.io/XiaV2/widget.js" data-tenant="org_enterprise_99" async></script>
+  </body>
+</html>
