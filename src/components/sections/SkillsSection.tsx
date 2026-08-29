@@ -41,9 +41,9 @@ export default function SkillsSection() {
         </div>
       </div>
 
-      {/* Right: Sticky placeholder for the morphing image (desktop only) */}
-      <div className="hidden lg:flex sticky top-32 w-full h-full min-h-[500px] items-center justify-center pointer-events-none">
-        <div id="services-placeholder" className="img-placeholder w-4/5 aspect-[4/5]" />
+      {/* Right / Bottom: Placeholder for the morphing image & video card */}
+      <div className="flex w-full items-center justify-center pointer-events-none mt-10 lg:mt-0 lg:sticky lg:top-32 lg:h-full lg:min-h-[500px]">
+        <div id="services-placeholder" className="img-placeholder w-[76vw] sm:w-[80vw] max-w-[270px] sm:max-w-[380px] lg:w-4/5 aspect-[3/4] lg:aspect-[4/5]" />
       </div>
     </section>
   );
