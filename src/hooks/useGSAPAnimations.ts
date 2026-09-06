@@ -5,23 +5,19 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Encapsulates ALL imperative GSAP/DOM animation logic that was previously
- * jammed into a single massive useEffect inside App.
- *
- * Responsibilities:
- *  1. Scroll reveal (IntersectionObserver + ".reveal" class)
+ * Encapsulates GSAP and DOM animation logic with high-performance optimizations:
+ *  1. IntersectionObserver scroll reveals with automatic cleanup
  *  2. Nav CTA visibility toggle
- *  3. Parallax effects (hero, marquee, text blocks)
- *  4. Magical image scroll morphing + flip
- *  5. Cursor trail for skill accordion items
- *  6. Sliding pill nav hover
- *  7. Header scroll hide/show
- *  8. Case study hover cursor
- *
- * All listeners are cleaned up via `gsap.context().revert()`.
+ *  3. Parallax effects (hero, marquee, text blocks) with GPU compositing
+ *  4. Cached layout morphing for Magical Image (eliminates layout thrashing)
+ *  5. GPU-accelerated cursor followers using translate3d & rAF coalescing
+ *  6. Passive scroll listener with rAF throttle lock
+ *  7. Complete cleanup of all observers, listeners, and frame requests
  */
 export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
   useEffect(() => {
+    const isTouch = typeof window !== "undefined" && ("ontouchstart" in window || navigator.maxTouchPoints > 0);
+
     const ctx = gsap.context(() => {
       // ── 1. Scroll Reveal ──
       const reveals = document.querySelectorAll(".reveal");
@@ -77,7 +73,7 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
       const heroBadge = document.getElementById("hero-badge");
       const servicesDot = document.getElementById("services-dot");
 
-      /** Returns an element's position/size relative to the document (not viewport). */
+      /** Returns an element's position/size relative to document */
       function getDocOffset(el: HTMLElement | null) {
         if (!el) return { top: 0, left: 0, width: 0, height: 0 };
         const rect = el.getBoundingClientRect();
@@ -89,17 +85,26 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
         };
       }
 
-      // Position the magic container over the hero placeholder on load
+      // Cached bounding boxes to prevent synchronous reflows on scroll scrub
+      let cachedHeroBox = getDocOffset(heroPl);
+      let cachedServicesBox = getDocOffset(servicesPl);
+
+      const updateCachedBoxes = () => {
+        cachedHeroBox = getDocOffset(heroPl);
+        cachedServicesBox = getDocOffset(servicesPl);
+      };
+
+      // Position the magic container over hero placeholder on load
       function updateMagicPosition() {
         if (!heroPl || !magicContainer) return;
-        const hBox = getDocOffset(heroPl);
+        updateCachedBoxes();
         const st = ScrollTrigger.getById("hero-morph");
         if (!st || st.progress === 0) {
           gsap.set(magicContainer, {
-            x: hBox.left,
-            y: hBox.top,
-            width: hBox.width,
-            height: hBox.height,
+            x: cachedHeroBox.left,
+            y: cachedHeroBox.top,
+            width: cachedHeroBox.width,
+            height: cachedHeroBox.height,
             rotationY: 0,
             rotationX: 0,
           });
@@ -114,14 +119,13 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
         ScrollTrigger.refresh();
       };
 
-      // Add ResizeObserver and window resize listener to force GSAP refresh & update position on live window resize
       const resizeObserver = new ResizeObserver(() => {
         handleResize();
       });
       if (containerRef.current) {
         resizeObserver.observe(containerRef.current);
       }
-      window.addEventListener("resize", handleResize);
+      window.addEventListener("resize", handleResize, { passive: true });
 
       // Hero → Skills morph (flip to back face)
       if (magicContainer && servicesPl && heroPl) {
@@ -133,6 +137,7 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
             end: "top 30%",
             scrub: 0.5,
             invalidateOnRefresh: true,
+            onRefresh: () => updateCachedBoxes(),
             onUpdate: (self) => {
               if (heroBadge) heroBadge.style.opacity = String(1 - self.progress * 2);
               if (servicesDot) servicesDot.style.opacity = String(self.progress);
@@ -140,57 +145,67 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
           },
         });
         tl1.fromTo(magicContainer, {
-          x: () => getDocOffset(heroPl).left,
-          y: () => getDocOffset(heroPl).top,
-          width: () => getDocOffset(heroPl).width,
-          height: () => getDocOffset(heroPl).height,
+          x: () => cachedHeroBox.left,
+          y: () => cachedHeroBox.top,
+          width: () => cachedHeroBox.width,
+          height: () => cachedHeroBox.height,
         }, {
-          x: () => getDocOffset(servicesPl).left,
-          y: () => getDocOffset(servicesPl).top,
-          width: () => getDocOffset(servicesPl).width,
-          height: () => getDocOffset(servicesPl).height,
+          x: () => cachedServicesBox.left,
+          y: () => cachedServicesBox.top,
+          width: () => cachedServicesBox.width,
+          height: () => cachedServicesBox.height,
           ease: "power1.inOut",
           immediateRender: false,
         }, 0);
         if (magicInner) tl1.to(magicInner, { rotationY: 180, ease: "power1.inOut" }, 0);
       }
 
-      // (About section removed — image stays at Skills after morph)
-
-      // ── 5. Cursor Trail for Skill Accordion ──
+      // ── 5. Cursor Trail for Skill Accordion (GPU transform + rAF coalescing) ──
       const cursorTrail = document.getElementById("cursor-trail-img") as HTMLImageElement | null;
-      if (cursorTrail) {
+      let trailRaf: number | null = null;
+      let trailX = 0;
+      let trailY = 0;
+
+      const renderTrail = () => {
+        if (cursorTrail) {
+          cursorTrail.style.transform = `translate3d(${trailX + 20}px, ${trailY + 20}px, 0) scale(1)`;
+        }
+        trailRaf = null;
+      };
+
+      if (cursorTrail && !isTouch) {
         document.querySelectorAll(".accordion-item").forEach((item) => {
           item.addEventListener("mouseenter", () => {
             const imgSrc = (item as HTMLElement).dataset.image;
             if (imgSrc) cursorTrail.src = imgSrc;
             cursorTrail.style.opacity = "1";
-            cursorTrail.style.transform = "scale(1)";
           });
           item.addEventListener("mouseleave", () => {
             cursorTrail.style.opacity = "0";
-            cursorTrail.style.transform = "scale(0.5)";
+            cursorTrail.style.transform = `translate3d(${trailX + 20}px, ${trailY + 20}px, 0) scale(0.5)`;
           });
           item.addEventListener("mousemove", (e: Event) => {
             const mouseEvent = e as MouseEvent;
-            cursorTrail.style.left = mouseEvent.clientX + 20 + "px";
-            cursorTrail.style.top = mouseEvent.clientY + 20 + "px";
-          });
+            trailX = mouseEvent.clientX;
+            trailY = mouseEvent.clientY;
+            if (!trailRaf) {
+              trailRaf = requestAnimationFrame(renderTrail);
+            }
+          }, { passive: true });
         });
       }
 
-      // (Pill nav positioning is now managed by Header.tsx via React state)
-
-      // ── 7. Header Scroll Hide/Show ──
+      // ── 6. Header Scroll Hide/Show (Passive + rAF lock) ──
       const mainHeader = document.getElementById("main-header");
       let scrollAnchor = window.scrollY;
       let lastScrollY = window.scrollY;
       let isScrollingDown = false;
-      const SCROLL_DEAD_ZONE = 8; 
+      const SCROLL_DEAD_ZONE = 8;
+      let scrollTicking = false;
 
-      let handleScroll: (() => void) | undefined;
+      let onScroll: (() => void) | undefined;
       if (mainHeader) {
-        handleScroll = () => {
+        const updateHeaderScroll = () => {
           const currentScrollY = window.scrollY;
           
           if (currentScrollY <= 50) {
@@ -206,7 +221,7 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
                 isScrollingDown = true;
               }
               if (isScrollingDown) {
-                scrollAnchor = currentScrollY; // Anchor at the bottom-most point
+                scrollAnchor = currentScrollY;
               }
             } else if (currentScrollY < lastScrollY) {
               // Scrolling up
@@ -215,19 +230,39 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
                 isScrollingDown = false;
               }
               if (!isScrollingDown) {
-                scrollAnchor = currentScrollY; // Anchor at the top-most point
+                scrollAnchor = currentScrollY;
               }
             }
           }
           lastScrollY = currentScrollY;
+          scrollTicking = false;
         };
-        window.addEventListener("scroll", handleScroll);
+
+        onScroll = () => {
+          if (!scrollTicking) {
+            scrollTicking = true;
+            requestAnimationFrame(updateHeaderScroll);
+          }
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
       }
 
-      // ── 8. Case Study Hover Cursor ──
+      // ── 7. Case Study Hover Cursor (GPU transform + rAF coalescing) ──
       const cursorTextView = document.getElementById("cursor-text-view");
       const cursorTextInner = document.getElementById("cursor-text-inner");
-      if (cursorTextView && cursorTextInner) {
+      let textCursorRaf: number | null = null;
+      let textCursorX = 0;
+      let textCursorY = 0;
+
+      const renderTextCursor = () => {
+        if (cursorTextView) {
+          cursorTextView.style.transform = `translate3d(${textCursorX}px, ${textCursorY}px, 0) translate(-50%, -50%)`;
+        }
+        textCursorRaf = null;
+      };
+
+      if (cursorTextView && cursorTextInner && !isTouch) {
         document.querySelectorAll(".case-study-item").forEach((item) => {
           item.addEventListener("mouseenter", () => {
             cursorTextView.style.opacity = "1";
@@ -239,16 +274,22 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
           });
           item.addEventListener("mousemove", (e: Event) => {
             const mouseEvent = e as MouseEvent;
-            cursorTextView.style.left = mouseEvent.clientX + "px";
-            cursorTextView.style.top = mouseEvent.clientY + "px";
-          });
+            textCursorX = mouseEvent.clientX;
+            textCursorY = mouseEvent.clientY;
+            if (!textCursorRaf) {
+              textCursorRaf = requestAnimationFrame(renderTextCursor);
+            }
+          }, { passive: true });
         });
       }
 
       return () => {
-        if (handleScroll) window.removeEventListener("scroll", handleScroll);
+        revealObserver.disconnect();
+        if (onScroll) window.removeEventListener("scroll", onScroll);
         window.removeEventListener("resize", handleResize);
         resizeObserver.disconnect();
+        if (trailRaf) cancelAnimationFrame(trailRaf);
+        if (textCursorRaf) cancelAnimationFrame(textCursorRaf);
       };
     }, containerRef);
 

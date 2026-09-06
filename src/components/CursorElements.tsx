@@ -2,7 +2,7 @@ import { DiagonalArrowIcon } from "./icons";
 import { asset } from "../lib/asset";
 
 /**
- * Cursor follower elements rendered at root level.
+ * Cursor follower elements rendered at root level with GPU compositing.
  * - Skill accordion hover image trail
  * - Case study card hover arrow cursor
  */
@@ -13,14 +13,17 @@ export default function CursorElements() {
       <img
         id="cursor-trail-img"
         src={asset("12.jpg")}
-        className="fixed pointer-events-none z-50 w-64 aspect-video object-cover rounded-xl shadow-2xl opacity-0 scale-50 transition-all duration-200 ease-out mix-blend-normal"
+        alt="Skill preview trail"
+        loading="lazy"
+        decoding="async"
+        className="fixed pointer-events-none z-50 w-64 aspect-video object-cover rounded-xl shadow-2xl opacity-0 scale-50 transition-opacity duration-200 ease-out mix-blend-normal will-change-transform"
         style={{ left: "0", top: "0" }}
       />
 
       {/* Arrow circle that follows cursor on case study card hover */}
       <div
         id="cursor-text-view"
-        className="fixed pointer-events-none z-[100] w-20 h-20 opacity-0 transition-opacity duration-300"
+        className="fixed pointer-events-none z-[100] w-20 h-20 opacity-0 transition-opacity duration-300 will-change-transform"
         style={{ left: "0", top: "0", transform: "translate(-50%, -50%)" }}
       >
         <div

@@ -157,9 +157,9 @@ export default function Header({ activeSection, onOpenMobileNav }: HeaderProps) 
       {/* Mobile Hamburger Button */}
       <button
         onClick={onOpenMobileNav}
-        className="md:hidden pointer-events-auto w-12 h-12 rounded-full border border-border bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors shadow-sm"
+        className="md:hidden pointer-events-auto w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-border bg-background/80 backdrop-blur-md flex items-center justify-center text-foreground hover:bg-foreground hover:text-background transition-colors shadow-sm"
       >
-        <Menu size={20} />
+        <Menu size={18} className="sm:w-5 sm:h-5" />
       </button>
     </header>
   );

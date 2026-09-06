@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 /**
  * Animated name scramble effect — cycles through multiple names
  * with a character-by-character reveal animation.
+ * Memory-safe: properly cleans up all outer and inner intervals on unmount.
  */
 const NAMES = ["Aniz Wiz Gouki", "Gouki", "Htet Myat Oo"];
 const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!<>-_\\/[]{}—=+*^?#";
@@ -15,13 +16,18 @@ export default function MagicText() {
 
   useEffect(() => {
     let currentIndex = 0;
+    let scrambleInterval: ReturnType<typeof setInterval> | null = null;
 
-    const interval = setInterval(() => {
+    const cycleInterval = setInterval(() => {
       currentIndex = (currentIndex + 1) % NAMES.length;
       const targetText = NAMES[currentIndex];
       let iteration = 0;
 
-      const scrambleInterval = setInterval(() => {
+      if (scrambleInterval) {
+        clearInterval(scrambleInterval);
+      }
+
+      scrambleInterval = setInterval(() => {
         setDisplayText(
           targetText
             .split("")
@@ -34,14 +40,22 @@ export default function MagicText() {
         );
 
         if (iteration >= targetText.length) {
-          clearInterval(scrambleInterval);
+          if (scrambleInterval) {
+            clearInterval(scrambleInterval);
+            scrambleInterval = null;
+          }
           setDisplayText(targetText);
         }
         iteration += SCRAMBLE_SPEED;
       }, SCRAMBLE_TICK_MS);
     }, CYCLE_INTERVAL_MS);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(cycleInterval);
+      if (scrambleInterval) {
+        clearInterval(scrambleInterval);
+      }
+    };
   }, []);
 
   return (

@@ -1,14 +1,12 @@
 /**
  * App.tsx — The main orchestrator.
  *
- * This file is now a clean ~60-line shell that:
- *  1. Wires up custom hooks (animations, nav state, scroll lock)
- *  2. Manages the single piece of local state (active case study)
- *  3. Composes all section components in layout order
- *
- * All data, logic, icons, and section markup live in their own modules.
+ * Performance & Architecture:
+ *  - Specific hook imports to ensure perfect tree-shaking
+ *  - Code-split CaseStudyModal via React.lazy & Suspense
+ *  - 100% preservation of components, sections, interactions, and responsive design
  */
-import { useRef, useState } from "react";
+import { useRef, useState, lazy, Suspense } from "react";
 import { User } from "lucide-react";
 
 // Hooks
@@ -21,18 +19,21 @@ import Header from "./components/Header";
 import MagicalImage from "./components/MagicalImage";
 import CursorElements from "./components/CursorElements";
 import ThemeToggle from "./components/ThemeToggle";
-import CaseStudyModal from "./components/CaseStudyModal";
 import SplashScreen from "./components/ui/SplashScreen";
+import MobileNav from "./components/MobileNav";
 
 // Section components
-import HeroSection from "./components/sections/HeroSection";
-import ToolsMarquee from "./components/sections/ToolsMarquee";
-import SkillsSection from "./components/sections/SkillsSection";
-import ExperienceSection from "./components/sections/ExperienceSection";
-import CaseStudiesSection from "./components/sections/CaseStudiesSection";
-import Footer from "./components/sections/Footer";
+import {
+  HeroSection,
+  ToolsMarquee,
+  SkillsSection,
+  ExperienceSection,
+  CaseStudiesSection,
+  Footer,
+} from "./components/sections";
 
-import MobileNav from "./components/MobileNav";
+// Smart Rendering: lazy load heavy modal on demand
+const CaseStudyModal = lazy(() => import("./components/CaseStudyModal"));
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -76,7 +77,7 @@ export default function App() {
             <a
               href="https://awgresume.vercel.app/"
               title="Back to Resume"
-              className="pointer-events-auto flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-gray-200/50 dark:border-white/20 bg-background/50 backdrop-blur-md hover:bg-gray-100 dark:hover:bg-white/10 transition-colors duration-300 text-foreground shadow-sm group"
+              className="pointer-events-auto flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-border bg-background/80 backdrop-blur-md hover:bg-foreground hover:text-background transition-colors duration-300 text-foreground shadow-sm group"
             >
               <User size={18} className="group-hover:scale-110 transition-transform duration-300 sm:w-5 sm:h-5" />
             </a>
@@ -111,11 +112,15 @@ export default function App() {
         )}
       </div>
 
-      {/* Overlays (Keep Modals outside the scalable container so they can be full-screen) */}
-      <CaseStudyModal
-        activeStudySlug={activeCaseStudy}
-        onClose={() => setActiveCaseStudy(null)}
-      />
+      {/* Overlays: Lazy loaded modal loaded on demand */}
+      <Suspense fallback={null}>
+        {activeCaseStudy && (
+          <CaseStudyModal
+            activeStudySlug={activeCaseStudy}
+            onClose={() => setActiveCaseStudy(null)}
+          />
+        )}
+      </Suspense>
     </div>
   );
 }

@@ -84,3 +84,16 @@ export interface AboutStat {
   value: string;
   label: string;
 }
+
+/** Network Information API interface for adaptive network detection. */
+export interface NetworkInformation extends EventTarget {
+  effectiveType?: string;
+  saveData?: boolean;
+}
+
+/** Extended Navigator interface supporting hardware concurrency and network information. */
+export interface NavigatorExtended extends Navigator {
+  deviceMemory?: number;
+  connection?: NetworkInformation;
+}
+

@@ -125,10 +125,18 @@
   display: flex;
   width: max-content;
   animation: marquee 25s linear infinite;
+  will-change: transform;
 }
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* GPU Compositing & Hardware Acceleration Hints */
+.will-change-transform {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
