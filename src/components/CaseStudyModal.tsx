@@ -120,10 +120,53 @@ export default function CaseStudyModal({ activeStudySlug, onClose }: Props) {
 
               {/* ── My Process (Figma / Design steps) ── */}
               <div className="mb-8 sm:mb-12 lg:mb-14">
-                <h3 className="text-[10px] sm:text-[11px] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-4 sm:mb-6">
-                  {isXiaChat ? "My Process —" : "Figma Design Process —"}
-                </h3>
-                {!isXiaChat && (
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <h3 className="text-[10px] sm:text-[11px] font-bold tracking-[0.15em] uppercase text-muted-foreground">
+                    {isXiaChat ? "Figma UI/UX & User Flow Process —" : "Figma Design Process —"}
+                  </h3>
+                  {study.figmaLink && (
+                    <a
+                      href={study.figmaLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-[0.1em] uppercase text-primary hover:underline transition-all group"
+                    >
+                      <FigmaLogoDetailed />
+                      <span className="hidden sm:inline">Open in</span> Figma ↗
+                    </a>
+                  )}
+                </div>
+                {isXiaChat ? (
+                  <a
+                    href={study.figmaLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative overflow-hidden border border-border/80 rounded-xl p-4 sm:p-5 mb-6 sm:mb-8 bg-gradient-to-r from-muted/70 via-card to-muted/40 group hover:border-primary/60 transition-all duration-300 block shadow-sm hover:shadow-md"
+                  >
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                      <div className="flex items-center gap-3.5">
+                        <div className="w-10 h-10 rounded-lg bg-black/50 border border-border flex items-center justify-center p-2.5 shrink-0 group-hover:scale-105 transition-transform">
+                          <FigmaLogoDetailed />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs sm:text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                              Xia Chat Figma Workspace &amp; UI/UX Specs
+                            </span>
+                            <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-primary/10 text-primary uppercase font-bold">Figma</span>
+                          </div>
+                          <p className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">
+                            User flows, state architecture, responsive widget design &amp; design system
+                          </p>
+                        </div>
+                      </div>
+                      <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-primary border border-primary/30 px-3 py-1.5 rounded-full group-hover:bg-primary group-hover:text-primary-foreground transition-all">
+                        View Figma File
+                        <svg className="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 17L17 7M17 7H7M17 7V17" /></svg>
+                      </span>
+                    </div>
+                  </a>
+                ) : (
                   <div className="relative overflow-hidden border border-border rounded-lg sm:rounded-none group mb-6 sm:mb-8">
                     <img src={study.figmaScreenshot} alt={`${study.title} Figma Design`} className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
                     <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -137,7 +180,7 @@ export default function CaseStudyModal({ activeStudySlug, onClose }: Props) {
               {/* ── AI-Prototyping / Design-to-Code ── */}
               <div className="mb-8 sm:mb-12 lg:mb-14">
                 <h3 className="text-[10px] sm:text-[11px] font-bold tracking-[0.15em] uppercase text-muted-foreground mb-4 sm:mb-6">
-                  {isXiaChat ? "Development & Deployment —" : "AI-Prototyping Process —"}
+                  {isXiaChat ? "Full-Stack Development & Architecture —" : "AI-Prototyping Process —"}
                 </h3>
                 {study.aiScreenshot ? (
                   <div className="relative overflow-hidden border border-border rounded-lg sm:rounded-none group mb-6 sm:mb-8">
