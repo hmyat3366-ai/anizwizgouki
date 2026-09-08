@@ -217,6 +217,33 @@ export default function CaseStudyModal({ activeStudySlug, onClose }: Props) {
                 </div>
               )}
 
+              {/* ── Mobile App Expansion Roadmap (XiaChat only) ── */}
+              {isXiaChat && (
+                <div className="mb-8 sm:mb-12 lg:mb-14 p-5 sm:p-6 rounded-xl border border-primary/40 bg-gradient-to-br from-primary/5 via-muted/30 to-background relative overflow-hidden group">
+                  <div className="absolute -right-8 -bottom-8 w-36 h-36 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-primary/15 text-primary border border-primary/30">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                      In Active Development
+                    </span>
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-mono">Mobile App Expansion</span>
+                  </div>
+                  <h4 className="text-sm sm:text-base font-bold text-foreground mb-1.5 flex items-center gap-2">
+                    <span>iOS &amp; Android Native Companion App</span>
+                  </h4>
+                  <p className="text-xs sm:text-[13px] text-muted-foreground leading-relaxed">
+                    Expanding Xia Chat beyond desktop browsers. Currently engineering dedicated cross-platform mobile apps with React Native, Supabase Realtime, and background push notifications — allowing support agents to manage visitor queues, respond to urgent queries, and monitor active chats anywhere with zero latency.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-4 pt-3.5 border-t border-border/60">
+                    {["React Native", "Expo", "Push Notifications", "Offline Queuing", "Real-time Sync"].map((tech) => (
+                      <span key={tech} className="text-[10px] font-medium px-2 py-0.5 rounded bg-muted/80 text-foreground/80 border border-border/70">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* ── Key Takeaway / Reflection ── */}
               <div className="p-5 sm:p-8 border-l-4 border-l-primary border-t border-r border-b border-border/80 mb-8 sm:mb-12 lg:mb-14 bg-muted/30">
                 <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.15em] uppercase text-primary block mb-2 sm:mb-3">
