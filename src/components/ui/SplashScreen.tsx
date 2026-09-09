@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 /* ─────────────────────────────────────────────────────────────
    SplashScreen — Premium Editorial Edition
    AWG Geometric Monogram · Apple/Linear Aesthetic
-   #0B0B0B · Warm Off-White · Maroon Accent #9B1C31
+   #0B0B0B · Warm Off-White · Navy Blue Accent #388BFD
    ───────────────────────────────────────────────────────────── */
 
 /* ── AWG Mark geometry (viewBox 0 0 80 96) ──────────────────
@@ -12,11 +12,11 @@ import { motion, AnimatePresence } from "framer-motion";
       crossbar at y=51: x=27→x=53
    W: inner valley M 28 69 L 40 58 L 52 69  (inside A legs)
    G: corner bracket (62,17)→(73,17)→(73,28)  [UI bounding-box handle]
-   ·: cursor dot  cx=40 cy=51 r=2.4  [maroon accent — interactive focal pt]
+   ·: cursor dot  cx=40 cy=51 r=2.4  [navy accent — interactive focal pt]
    ─────────────────────────────────────────────────────────── */
 
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const ACCENT = "#9B1C31";          // portfolio maroon
+const ACCENT = "#388BFD";          // portfolio navy blue accent
 const INK    = "rgba(228, 224, 218, 0.88)";  // warm off-white strokes
 const BG     = "#0B0B0B";
 

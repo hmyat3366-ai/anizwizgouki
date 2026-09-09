@@ -51,7 +51,7 @@ export default function ChatAgent() {
           <div className="flex items-center gap-4">
             <div className="relative">
               <div className="absolute inset-0 rounded-full bg-primary animate-ping opacity-20"></div>
-              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary/30 to-primary/5 border border-primary/40 flex items-center justify-center shrink-0 relative z-10 text-primary shadow-[0_0_15px_rgba(var(--primary),0.3)]">
+              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary/30 to-primary/5 border border-primary/40 flex items-center justify-center shrink-0 relative z-10 text-primary shadow-lg shadow-primary/30">
                 <Sparkles size={20} />
               </div>
             </div>
@@ -191,7 +191,7 @@ export default function ChatAgent() {
               type="submit"
               disabled={!input.trim() || isLoading}
               aria-label="Send Message"
-              className="bg-primary text-primary-foreground w-10 h-10 rounded-full flex items-center justify-center shrink-0 disabled:opacity-40 disabled:scale-100 hover:scale-105 active:scale-95 transition-all duration-300 shadow-[0_0_15px_rgba(var(--primary),0.4)] hover:shadow-[0_0_20px_rgba(var(--primary),0.6)]"
+              className="bg-primary text-primary-foreground w-10 h-10 rounded-full flex items-center justify-center shrink-0 disabled:opacity-40 disabled:scale-100 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg shadow-primary/40 hover:shadow-primary/60"
             >
               <Send size={16} className="ml-0.5" />
             </button>

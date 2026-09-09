@@ -10,7 +10,7 @@ interface Props {
 
 /**
  * Full-screen split-screen case study modal.
- * Left panel: hero image. Right panel: scrollable editorial content with primary Maroon accents and hover states.
+ * Left panel: hero image. Right panel: scrollable editorial content with primary Navy Blue accents and hover states.
  */
 export default function CaseStudyModal({ activeStudySlug, onClose }: Props) {
   const study: CaseStudy | undefined = activeStudySlug

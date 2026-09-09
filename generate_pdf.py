@@ -67,7 +67,7 @@ def build_pdf(filename):
     
     # Custom Styles
     primary_color = colors.HexColor("#09090B")
-    accent_red = colors.HexColor("#881337") # Maroon / burgundy accent
+    accent_navy = colors.HexColor("#0F2B5C") # Navy blue accent
     text_dark = colors.HexColor("#18181B")
     text_muted = colors.HexColor("#52525B")
     border_color = colors.HexColor("#E4E4E7")
