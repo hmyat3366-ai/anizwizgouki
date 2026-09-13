@@ -67,7 +67,7 @@ export default function MagicalImage() {
         {/* Front Face (Hero Image) */}
         <div className="absolute inset-0 w-full h-full" style={{ backfaceVisibility: "hidden" }}>
           <img
-            src={asset("12.jpg")}
+            src={asset("hero-portrait.jpg")}
             alt="Aniz Wiz Gouki Portrait"
             fetchPriority="high"
             decoding="async"

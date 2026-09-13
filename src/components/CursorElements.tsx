@@ -12,7 +12,7 @@ export default function CursorElements() {
       {/* Image trail that follows cursor on skill accordion hover */}
       <img
         id="cursor-trail-img"
-        src={asset("12.jpg")}
+        src={asset("hero-portrait.jpg")}
         alt="Skill preview trail"
         loading="lazy"
         decoding="async"
