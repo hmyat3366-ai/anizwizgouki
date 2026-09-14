@@ -1,6 +1,16 @@
 import { SOCIAL_LINKS, CONTACT_EMAIL } from "../../data/navigation";
+import { useState } from "react";
 
 export default function Footer() {
+  const [copiedLink, setCopiedLink] = useState<string | null>(null);
+
+  const handleCopy = (e: React.MouseEvent, text: string, id: string) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(text);
+    setCopiedLink(id);
+    setTimeout(() => setCopiedLink(null), 2000);
+  };
+
   return (
     <footer id="contact" className="w-full relative bg-gray-900 dark:bg-black text-white pt-16 sm:pt-24 pb-20 sm:pb-28 mt-16 sm:mt-32 rounded-t-[2.5rem] sm:rounded-t-[5rem] overflow-hidden reveal z-20 shadow-[0_-20px_50px_rgba(0,0,0,0.1)]">
       {/* Marquee */}
@@ -36,9 +46,14 @@ export default function Footer() {
               {SOCIAL_LINKS.map((link, i) => (
                 <li key={link.label}>
                   <a href={link.href} target="_blank" rel="noopener noreferrer"
+                    onClick={(e) => {
+                      if (link.href.startsWith("tel:")) {
+                        handleCopy(e, link.label, link.label);
+                      }
+                    }}
                     className={`text-xl sm:text-2xl hover:text-primary transition-colors uppercase font-bold font-display tracking-widest flex items-center gap-2 group ${i > 0 ? "md:flex-row-reverse md:justify-end" : ""}`}>
                     {i > 0 && <span className="hidden md:inline text-xs opacity-0 group-hover:opacity-100 transition-opacity text-gray-500">↗</span>}
-                    {link.label}
+                    {copiedLink === link.label ? "Copied!" : link.label}
                     <span className={`${i > 0 ? "md:hidden " : ""}text-xs opacity-0 group-hover:opacity-100 transition-opacity text-gray-500`}>↗</span>
                   </a>
                 </li>
@@ -59,3 +74,4 @@ export default function Footer() {
     </footer>
   );
 }
+

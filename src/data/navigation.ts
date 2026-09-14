@@ -19,8 +19,8 @@ export const SOCIAL_LINKS: SocialLink[] = [
     label: "Instagram",
   },
   {
-    href: "https://www.facebook.com/anzei.gki",
-    label: "Facebook",
+    href: "tel:+959683164651",
+    label: "09683164651",
   },
 ];
 
