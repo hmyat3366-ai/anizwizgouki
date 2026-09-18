@@ -227,7 +227,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       "Bridged deep UX/CX user research with production Flutter mobile engineering — slashing onboarding time from 15 minutes to under 60 seconds and shipping a real, downloadable 60fps Flutter mobile application with a complete design system.",
     highlightColor: "bg-[#FF5E14] text-white",
     image: asset("himopay-hero.jpg"),
-    url: "https://himopay.vercel.app/home",
+    url: "https://himo-pay.vercel.app/",
     figmaLink: "https://www.figma.com/design/KyE1Pqiyzc8ucg3clMAhiw/Untitled?node-id=0-1&p=f&t=G8nm1Dmbw8JCeOoD-0",
     apkDownloadUrl: asset("downloads/HimoPay-release.apk"),
     apkSize: "61.9 MB (Clean Universal Release)",
