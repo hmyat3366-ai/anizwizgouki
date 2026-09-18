@@ -94,3 +94,25 @@ export const DiagonalArrowIcon = ({ className = "w-4 h-4" }: { className?: strin
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 17L17 7M17 7H7M17 7V17" />
   </svg>
 );
+
+/** HimoPay Brand Mark Icon */
+export const HimoPayIcon = ({
+  className = "w-6 h-6",
+  orangeColor = "#EB5A2D",
+  rightPillarColor = "currentColor",
+}: {
+  className?: string;
+  orangeColor?: string;
+  rightPillarColor?: string;
+}) => (
+  <svg
+    viewBox="0 0 100 100"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    aria-label="HimoPay Icon"
+  >
+    <path d="M10 10H30V40H49V60H30V90H10V10Z" fill={orangeColor} />
+    <path d="M49 10H69V40A10 10 0 0 1 69 60V90H49V60A10 10 0 0 1 49 40V10Z" fill={rightPillarColor} />
+  </svg>
+);

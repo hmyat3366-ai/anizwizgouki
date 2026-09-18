@@ -38,6 +38,22 @@ export interface CaseStudy {
   timelineNote?: string;
   /** Optional list of key features displayed as a dedicated section. */
   keyFeatures?: string[];
+  /** Optional direct APK download URL (for mobile projects like Himo Pay). */
+  apkDownloadUrl?: string;
+  /** Optional APK size description. */
+  apkSize?: string;
+  /** Optional APK version tag. */
+  apkVersion?: string;
+  /** Optional QR code image for scanning download on phone. */
+  qrCodeImage?: string;
+  /** Optional GitHub repository URL. */
+  githubRepo?: string;
+  /** Optional UX research points. */
+  uxResearch?: { title: string; desc: string; icon?: string }[];
+  /** Optional CX research points. */
+  cxResearch?: { title: string; desc: string; icon?: string }[];
+  /** Optional design tokens preview. */
+  designTokens?: { name: string; hex: string; role: string }[];
 }
 
 /** A tool displayed in the marquee banner. */

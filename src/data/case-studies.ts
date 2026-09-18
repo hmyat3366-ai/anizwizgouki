@@ -162,15 +162,146 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       "Visitor Analytics & Tracking",
     ],
   },
+  himopay: {
+    id: "himopay",
+    title: "Himo Pay",
+    subtitle: "Next-Gen FinTech Mobile Wallet & Digital Payment Ecosystem",
+    tag: "FinTech • Mobile App",
+    year: "2026 SEPT",
+    timeline: "August – September 2026",
+    timelineNote: "Grounded in deep UX/CX research, custom design tokens, product landing page, and production-ready Flutter mobile engineering.",
+    tools: ["Flutter", "Dart", "Figma", "Supabase", "Clean Architecture", "UI/UX Research", "CX Research", "Tailwind CSS", "Antigravity AI"],
+    bgColor: "bg-[#0B1220]",
+    roles: ["Lead Product Designer", "UX & CX Researcher", "Flutter Mobile Engineer"],
+    desc: "A calm, premium digital payment ecosystem built with Flutter. Designed through extensive UX and CX research to eliminate financial friction for Myanmar users with 60-second onboarding, zero-fee P2P transfers, and a tailored design system.",
+    overview:
+      "Himo Pay is a full-featured digital wallet and financial services ecosystem conceived, designed, and developed to bring modern financial empowerment to users in Myanmar. Traditional banking and payment apps in the region often suffer from clunky navigation, intimidating financial jargon, slow branch-dependent KYC, and surprise transaction fees. Himo Pay directly dismantles these pain points.\n\nThe project was driven by a disciplined research-first philosophy: conducting user interviews (UX Research) to understand everyday cash habits and usability barriers, followed by customer journey mapping (CX Research) to build transparent pricing and long-term customer trust. From these insights, I created a custom design system centered around high-contrast fintech palettes (Brand Orange #FF5E14 and Deep Navy #0B1F3A), bespoke monochrome iconography, and high-fidelity prototypes covering over 25 mobile screens.\n\nTo translate this vision into reality, I engineered the mobile client from scratch using Flutter and Dart, implementing Clean Architecture with feature-first modularity (Auth, Wallet, P2P Transfers, QR Payments, Service Grid, and Tier Rewards). Finally, I built a high-converting product landing page that allows users to directly download the official production APK and scan a dynamic QR code for instant mobile installation.",
+    gallery: [
+      asset("himopay-hero.jpg"),
+      asset("himopay-design-system.png"),
+      asset("himopay-campaign.jpg"),
+      asset("himopay-rewards.jpg"),
+      asset("himopay-qr.png"),
+    ],
+    figmaScreenshot: asset("himopay-design-system.png"),
+    figmaProcess: [
+      {
+        step: "01",
+        title: "UX & CX Research & Discovery",
+        desc: "Conducted user interviews and journey mapping with everyday Myanmar consumers and merchants. Identified key friction points: 15-minute tedious onboarding, hidden transaction fees, and cognitive overload during payments.",
+      },
+      {
+        step: "02",
+        title: "Design System & Token Architecture",
+        desc: "Crafted a comprehensive fintech design foundation in Figma: establishing semantic color tokens (Brand Orange #FF5E14, Primary Navy #0B1F3A, Charcoal #0D1117), consistent typography scale (Plus Jakarta Sans/Inter), 4-column service grid, and bespoke monochrome icon set.",
+      },
+      {
+        step: "03",
+        title: "Interactive Flow Prototyping & Ergonomics",
+        desc: "Engineered ergonomic mobile prototypes focused on the 'thumb zone' for one-handed operation. Designed 1-tap balance privacy toggling, high-speed QR scan-and-pay camera viewfinders, and clear digital receipt generation.",
+      },
+    ],
+    designToCode: [
+      {
+        step: "01",
+        title: "Flutter Clean Architecture & Feature Modularity",
+        desc: "Structured the codebase using Clean Architecture with feature-first separation (features/auth, features/home, features/wallet, features/transfer, features/qr). Separated Presentation, Domain, and Data layers to guarantee testability and maintainability.",
+      },
+      {
+        step: "02",
+        title: "Design Tokens to Flutter Theming Parity",
+        desc: "Translated Figma tokens directly into Dart constants (AppColors, AppSpacing, AppRadius, AppTextStyles). Built custom reusable widgets for balance cards, action buttons, service grid items, and promotional banners with pixel-perfect accuracy down to 320px screen widths.",
+      },
+      {
+        step: "03",
+        title: "Supabase Backend, Biometrics & Security",
+        desc: "Integrated Supabase for secure cloud authentication, database tables, and Row-Level Security (RLS). Implemented device biometric authentication (FaceID/Fingerprint) and PIN authorization before executing any financial transfers.",
+      },
+      {
+        step: "04",
+        title: "Product Landing Page & Direct APK Distribution",
+        desc: "Designed and launched a modern product landing page equipped with direct APK release downloads (v1.0.0, 61.9 MB clean build), scannable QR camera download flow, problem/solution comparisons, and GitHub repository integration.",
+      },
+    ],
+    keyMetric:
+      "Bridged deep UX/CX user research with production Flutter mobile engineering — slashing onboarding time from 15 minutes to under 60 seconds and shipping a real, downloadable 60fps Flutter mobile application with a complete design system.",
+    highlightColor: "bg-[#FF5E14] text-white",
+    image: asset("himopay-hero.jpg"),
+    url: "https://himopay.vercel.app/home",
+    figmaLink: "https://www.figma.com/design/KyE1Pqiyzc8ucg3clMAhiw/Untitled?node-id=0-1&p=f&t=G8nm1Dmbw8JCeOoD-0",
+    apkDownloadUrl: asset("downloads/HimoPay-release.apk"),
+    apkSize: "61.9 MB (Clean Universal Release)",
+    apkVersion: "v1.0.0",
+    qrCodeImage: asset("himopay-qr.png"),
+    uxResearch: [
+      {
+        title: "60-Second Frictionless KYC Onboarding",
+        desc: "Traditional banking apps in Myanmar require physically visiting a branch or completing multi-page complex forms. Himo Pay compresses identity verification into 3 simple, guided mobile steps completed in under 1 minute.",
+      },
+      {
+        title: "Ergonomic One-Handed Thumb Zone",
+        desc: "Primary actions (Send, Cash In, Cash Out, QR Scan) are positioned within the natural bottom arc of the thumb, enabling effortless one-handed operation on any screen size from 320px to 393px+.",
+      },
+      {
+        title: "Cognitive Load & Visual Calmness",
+        desc: "Replaced cluttered banking dashboards with a calm, hierarchical balance view, featuring a 1-tap privacy eye toggle to hide balance in public, avoiding anxiety and visual noise.",
+      },
+      {
+        title: "Clarity in Transaction Verification",
+        desc: "Designed distinct multi-step transfer confirmation with biometric verification and instant shareable digital receipts, preventing accidental transfers.",
+      },
+    ],
+    cxResearch: [
+      {
+        title: "100% Transparent Zero-Fee Model",
+        desc: "CX interviews revealed that hidden surcharges erode customer trust faster than any technical bug. Himo Pay guarantees 0% transfer fees on all P2P and merchant QR transactions with explicit cost transparency.",
+      },
+      {
+        title: "Gamified VIP Tier Loyalty (Bronze to Platinum)",
+        desc: "Created emotional customer stickiness and lifetime value (LTV) through an automatic tier progression system offering escalating cashbacks, partner coffee/dining vouchers, and priority support.",
+      },
+      {
+        title: "Biometric Peace of Mind",
+        desc: "Built confidence through visible security indicators — FaceID / Fingerprint approval prompts, AES-256 cloud encryption badges, and instant transaction notifications.",
+      },
+      {
+        title: "Seamless On-Demand Customer Support",
+        desc: "Embedded in-app assistance and clear contextual error states with actionable recovery paths, turning potential frustration into a smooth resolution.",
+      },
+    ],
+    designTokens: [
+      { name: "Brand Orange", hex: "#FF5E14", role: "Primary Brand Accent & Interactive CTA" },
+      { name: "Primary Navy", hex: "#0B1F3A", role: "Financial Authority & Institutional Trust" },
+      { name: "Dark Canvas", hex: "#0D1117", role: "Premium Dark Card & Background Depth" },
+      { name: "Card Charcoal", hex: "#161B22", role: "Elevated Component Surface" },
+      { name: "Off-White", hex: "#FAFBFC", role: "Clean Content Background" },
+      { name: "Success Emerald", hex: "#10B981", role: "Verified Transfers & Security" },
+    ],
+    keyFeatures: [
+      "Flutter Cross-Platform Architecture",
+      "60s Onboarding KYC Verification",
+      "Zero-Fee Instant QR & P2P Transfers",
+      "Bespoke FinTech Design System & Tokens",
+      "VIP Loyalty Tier Rewards (Bronze to Platinum)",
+      "Clean Architecture (Data, Domain, Presentation)",
+      "Supabase Realtime & Row-Level Security",
+      "Biometric FaceID & PIN Security Gates",
+      "Dedicated Product Landing Page",
+      "Direct APK (v1.0.0) Android Distribution",
+      "Scannable Mobile Camera QR Download",
+      "Laser-Engraved Virtual & NFC Cards",
+    ],
+  },
 };
 
 /** Ordered list of case study slugs for rendering in sequence. */
-export const CASE_STUDY_ORDER = ["xiachat", "skyline", "dmar", "aura"] as const;
+export const CASE_STUDY_ORDER = ["himopay", "xiachat", "skyline", "dmar", "aura"] as const;
 
 /** Stacking config for the sticky card layout. */
 export const CASE_STUDY_STACK_CONFIG = [
-  { topOffset: "top-24", zIndex: "z-10" },
-  { topOffset: "top-32", zIndex: "z-20" },
-  { topOffset: "top-40", zIndex: "z-30" },
-  { topOffset: "top-48", zIndex: "z-40" },
+  { topOffset: "top-20", zIndex: "z-10" },
+  { topOffset: "top-28", zIndex: "z-20" },
+  { topOffset: "top-36", zIndex: "z-30" },
+  { topOffset: "top-44", zIndex: "z-40" },
+  { topOffset: "top-52", zIndex: "z-50" },
 ];

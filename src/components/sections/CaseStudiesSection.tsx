@@ -18,7 +18,7 @@ export default function CaseStudiesSection({ onOpenStudy }: Props) {
           </p>
         </div>
       </div>
-      <div className="w-full flex flex-col gap-8 sm:gap-12 relative min-h-[220vh] sm:min-h-[260vh]">
+      <div className="w-full flex flex-col gap-8 sm:gap-12 relative min-h-[280vh] sm:min-h-[340vh]">
         {CASE_STUDY_ORDER.map((slug, i) => {
           const s = CASE_STUDIES[slug];
           const c = CASE_STUDY_STACK_CONFIG[i];
@@ -39,7 +39,7 @@ export default function CaseStudiesSection({ onOpenStudy }: Props) {
                 </div>
               </div>
               <div className="w-full h-[220px] sm:h-[300px] lg:h-full relative overflow-hidden order-1 lg:order-2">
-                <img src={s.image} loading="lazy" alt={s.title} className={`w-full h-full transition-transform duration-700 ease-out group-hover:scale-110 ${s.id === "dmar" ? "object-cover object-top bg-secondary" : s.id === "xiachat" ? "object-contain p-6 sm:p-10 bg-white" : "object-cover"}`} />
+                <img src={s.image} loading="lazy" alt={s.title} className={`w-full h-full transition-transform duration-700 ease-out group-hover:scale-110 ${s.id === "dmar" ? "object-cover object-top bg-secondary" : s.id === "xiachat" ? "object-contain p-6 sm:p-10 bg-white" : s.id === "himopay" ? "object-cover object-center bg-[#0A0E17]" : "object-cover"}`} />
               </div>
             </div>
           );
