@@ -69,9 +69,9 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
       const magicContainer = document.getElementById("magical-image-container");
       const magicInner = document.getElementById("magical-image-inner");
       const heroPl = document.getElementById("hero-placeholder");
-      const servicesPl = document.getElementById("services-placeholder");
+      const aboutPl = document.getElementById("about-placeholder");
       const heroBadge = document.getElementById("hero-badge");
-      const servicesDot = document.getElementById("services-dot");
+      const aboutDot = document.getElementById("about-dot");
 
       /** Returns an element's position/size relative to document */
       function getDocOffset(el: HTMLElement | null) {
@@ -87,11 +87,11 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
 
       // Cached bounding boxes to prevent synchronous reflows on scroll scrub
       let cachedHeroBox = getDocOffset(heroPl);
-      let cachedServicesBox = getDocOffset(servicesPl);
+      let cachedAboutBox = getDocOffset(aboutPl);
 
       const updateCachedBoxes = () => {
         cachedHeroBox = getDocOffset(heroPl);
-        cachedServicesBox = getDocOffset(servicesPl);
+        cachedAboutBox = getDocOffset(aboutPl);
       };
 
       // Position the magic container over hero placeholder on load
@@ -127,37 +127,41 @@ export function useGSAPAnimations(containerRef: RefObject<HTMLElement | null>) {
       }
       window.addEventListener("resize", handleResize, { passive: true });
 
-      // Hero → Skills morph (flip to back face)
-      if (magicContainer && servicesPl && heroPl) {
+      // Hero → About Me morph (fluid scroll glide into the left side of About Me)
+      if (magicContainer && aboutPl && heroPl) {
         const tl1 = gsap.timeline({
           scrollTrigger: {
             id: "hero-morph",
-            trigger: "#services-section",
-            start: "top 85%",
-            end: "top 30%",
-            scrub: 0.5,
+            trigger: "#about-section",
+            start: "top 95%",
+            end: "top 25%",
+            scrub: 0.6,
             invalidateOnRefresh: true,
             onRefresh: () => updateCachedBoxes(),
             onUpdate: (self) => {
-              if (heroBadge) heroBadge.style.opacity = String(1 - self.progress * 2);
-              if (servicesDot) servicesDot.style.opacity = String(self.progress);
+              if (heroBadge) heroBadge.style.opacity = String(Math.max(0, 1 - self.progress * 2.5));
+              if (aboutDot) aboutDot.style.opacity = String(self.progress);
             },
           },
         });
-        tl1.fromTo(magicContainer, {
-          x: () => cachedHeroBox.left,
-          y: () => cachedHeroBox.top,
-          width: () => cachedHeroBox.width,
-          height: () => cachedHeroBox.height,
-        }, {
-          x: () => cachedServicesBox.left,
-          y: () => cachedServicesBox.top,
-          width: () => cachedServicesBox.width,
-          height: () => cachedServicesBox.height,
-          ease: "power1.inOut",
-          immediateRender: false,
-        }, 0);
-        if (magicInner) tl1.to(magicInner, { rotationY: 180, ease: "power1.inOut" }, 0);
+        tl1.fromTo(
+          magicContainer,
+          {
+            x: () => cachedHeroBox.left,
+            y: () => cachedHeroBox.top,
+            width: () => cachedHeroBox.width,
+            height: () => cachedHeroBox.height,
+          },
+          {
+            x: () => cachedAboutBox.left,
+            y: () => cachedAboutBox.top,
+            width: () => cachedAboutBox.width,
+            height: () => cachedAboutBox.height,
+            ease: "power1.inOut",
+            immediateRender: false,
+          },
+          0
+        );
       }
 
       // ── 5. Cursor Trail for Skill Accordion (GPU transform + rAF coalescing) ──

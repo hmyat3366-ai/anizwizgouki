@@ -7,7 +7,6 @@
  *  - 100% preservation of components, sections, interactions, and responsive design
  */
 import { useRef, useState, lazy, Suspense } from "react";
-import { User } from "lucide-react";
 
 // Hooks
 import { useActiveSection } from "./hooks/useActiveSection";
@@ -25,6 +24,7 @@ import MobileNav from "./components/MobileNav";
 // Section components
 import {
   HeroSection,
+  AboutSection,
   ToolsMarquee,
   SkillsSection,
   ExperienceSection,
@@ -70,29 +70,16 @@ export default function App() {
         <MagicalImage />
         <CursorElements />
 
-        {/* Non-sticky absolute layer for Back to Resume icon, scrolls away normally */}
-        <div className="absolute top-0 left-0 w-full px-4 sm:px-6 md:px-10 py-4 sm:py-6 flex items-center justify-between z-[90] pointer-events-none">
-          <div /> {/* Empty left side */}
-          <div className="flex items-center gap-6 sm:gap-8 md:gap-10">
-            <a
-              href="https://awgresume.vercel.app/"
-              title="Back to Resume"
-              className="pointer-events-auto flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-border bg-background/80 backdrop-blur-md hover:bg-foreground hover:text-background transition-colors duration-300 text-foreground shadow-sm group"
-            >
-              <User size={18} className="group-hover:scale-110 transition-transform duration-300 sm:w-5 sm:h-5" />
-            </a>
-            <div className="w-10 sm:w-12 md:w-[160px] h-10 sm:h-12" /> {/* Spacer for the Hamburger/CTA */}
-          </div>
-        </div>
 
         <Header activeSection={activeSection} onOpenMobileNav={() => setIsMobileNavOpen(true)} />
 
         {/* Main content sections */}
         <main className="relative w-full mx-auto flex-1 flex flex-col items-center pt-16 md:pt-24 mb-16 md:mb-24 px-4 sm:px-8 max-w-[1920px]">
           <HeroSection />
+          <AboutSection />
           <ToolsMarquee />
           <CaseStudiesSection onOpenStudy={setActiveCaseStudy} />
-          <ExperienceSection />
+          <ExperienceSection onOpenStudy={setActiveCaseStudy} />
           <SkillsSection />
         </main>
 

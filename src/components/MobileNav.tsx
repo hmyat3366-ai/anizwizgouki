@@ -1,6 +1,13 @@
 import { NAV_LINKS } from "../data/navigation";
-import { X } from "lucide-react";
+import { X, House, LayoutGrid, Briefcase, Sparkles } from "lucide-react";
 import { asset } from "../lib/asset";
+
+const NAV_ICONS: Record<string, React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>> = {
+  home: House,
+  project: LayoutGrid,
+  experience: Briefcase,
+  skill: Sparkles,
+};
 
 interface MobileNavProps {
   activeSection: string;
@@ -9,8 +16,6 @@ interface MobileNavProps {
 }
 
 export default function MobileNav({ activeSection, isOpen, onClose }: MobileNavProps) {
-
-
   return (
     <div className={`fixed inset-0 z-0 bg-zinc-950 dark:bg-black flex flex-col justify-between py-8 sm:py-12 px-5 sm:px-8 overflow-hidden transition-opacity duration-700 ${isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}>
       {/* Top: Avatar & Close */}
@@ -29,16 +34,18 @@ export default function MobileNav({ activeSection, isOpen, onClose }: MobileNavP
       {/* Links */}
       <div className="flex flex-col gap-6 sm:gap-10 w-full max-w-[62vw] sm:max-w-[45vw] my-auto justify-center">
         {NAV_LINKS.map((link) => {
+          const Icon = NAV_ICONS[link.sectionKey] || House;
           const isActive = activeSection === link.sectionKey;
           return (
             <a
               key={link.sectionKey}
               href={link.href}
               onClick={onClose}
-              className={`flex items-center text-base sm:text-lg font-bold uppercase tracking-widest transition-colors py-1 ${
+              className={`flex items-center gap-3.5 text-base sm:text-lg font-bold uppercase tracking-widest transition-colors py-1 ${
                 isActive ? "text-primary" : "text-white/60 hover:text-white"
               }`}
             >
+              <Icon size={20} strokeWidth={1.8} />
               {link.label}
             </a>
           );

@@ -20,12 +20,17 @@ export default function HeroSection() {
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-4 sm:gap-6 lg:gap-12 xl:gap-16 items-center w-full max-w-[1500px] relative z-10 mx-auto px-2 sm:px-4">
         {/* Left: Name + Role Title */}
         <div className="justify-self-center lg:justify-self-end flex flex-col items-center lg:items-end text-center lg:text-right mt-4 sm:mt-8 lg:mt-0 lg:pt-16 reveal hero-parallax w-full relative">
-          <span className="text-[11px] sm:text-xs md:text-sm tracking-[0.15em] font-semibold uppercase mb-2 sm:mb-3 text-gray-800 dark:text-gray-300 ml-1 lg:ml-auto w-full">
-            Aniz Wiz Gouki
-          </span>
+          <div className="w-full relative h-[16px] sm:h-[18px] md:h-[20px] mb-2 sm:mb-3 flex justify-center lg:justify-end ml-1 lg:ml-auto">
+            <MorphingText
+              texts={["Aniz Wiz Gouki", "Htet Myat Oo"]}
+              blurMultiplier={0.12}
+              filterId="threshold-sm"
+              className="text-[11px] sm:text-xs md:text-sm tracking-[0.15em] font-semibold uppercase text-gray-800 dark:text-gray-300 !mx-0 text-center lg:text-right w-full h-full absolute left-0 top-0 whitespace-nowrap px-1 leading-none"
+            />
+          </div>
           <div className="w-full flex justify-center lg:justify-end relative h-[52px] sm:h-[80px] md:h-[100px] lg:h-[70px] xl:h-[90px] 2xl:h-[120px]" dir="rtl">
             <MorphingText
-              texts={["UI/UX", "AI PRODUCT"]}
+              texts={["Jr. UI/UX", "Jr. UI/UX"]}
               className="font-display text-[clamp(2.1rem,7.8vw,2.6rem)] sm:text-[60px] md:text-[72px] lg:text-[50px] xl:text-[62px] 2xl:text-[90px] leading-none font-bold text-foreground uppercase tracking-tighter w-full absolute left-0 top-0 h-full !mx-0 text-center lg:text-right whitespace-nowrap px-1"
             />
           </div>

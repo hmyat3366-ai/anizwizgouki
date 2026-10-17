@@ -1,8 +1,15 @@
 import { NAV_LINKS } from "../data/navigation";
 import { ArrowIcon } from "./icons";
 import { asset } from "../lib/asset";
-import { Menu } from "lucide-react";
+import { Menu, House, LayoutGrid, Briefcase, Sparkles } from "lucide-react";
 import { useEffect, useCallback } from "react";
+
+const NAV_ICONS: Record<string, React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>> = {
+  home: House,
+  project: LayoutGrid,
+  experience: Briefcase,
+  skill: Sparkles,
+};
 
 interface HeaderProps {
   activeSection: string;
@@ -82,21 +89,31 @@ export default function Header({ activeSection, onOpenMobileNav }: HeaderProps) 
               id="nav-pill"
               className="absolute top-0 left-0 h-full bg-secondary rounded-full transition-all duration-300 ease-out z-0 opacity-0 pointer-events-none"
             />
-            {NAV_LINKS.map((link) => (
-              <li key={link.sectionKey} className="relative z-10">
-                <a
-                  href={link.href}
-                  onMouseEnter={handleLinkHover}
-                  className={`nav-link px-6 py-2.5 block transition-colors font-bold ${
-                    activeSection === link.sectionKey
-                      ? "text-primary"
-                      : "hover:text-gray-900 dark:hover:text-white"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const Icon = NAV_ICONS[link.sectionKey] || House;
+              const isActive = activeSection === link.sectionKey;
+              return (
+                <li key={link.sectionKey} className="relative z-10">
+                  <a
+                    href={link.href}
+                    title={link.label}
+                    aria-label={link.label}
+                    onMouseEnter={handleLinkHover}
+                    className={`nav-link px-4.5 sm:px-5 py-2 flex items-center justify-center transition-colors relative group ${
+                      isActive
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <Icon
+                      size={18}
+                      strokeWidth={1.8}
+                      className="transition-transform duration-200 group-hover:scale-110"
+                    />
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
 

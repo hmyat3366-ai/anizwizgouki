@@ -26,9 +26,9 @@ export const SOCIAL_LINKS: SocialLink[] = [
 
 /** Stats grid in the About section. */
 export const ABOUT_STATS: AboutStat[] = [
-  { value: "3+", label: "Case Studies" },
-  { value: "Figma", label: "Core Tool" },
-  { value: "1", label: "Internship" },
+  { value: "5+", label: "Projects Designed" },
+  { value: "Figma", label: "Design Systems" },
+  { value: "1", label: "School Internship" },
 ];
 
 /** Section IDs that the IntersectionObserver tracks for nav highlighting. */

@@ -71,15 +71,31 @@ export interface SkillItem {
   tools?: string;
 }
 
+/** A project completed during the school internship. */
+export interface SchoolInternshipProject {
+  id: string;
+  title: string;
+  category: string;
+  timeline: string;
+  role: string;
+  description: string;
+  logo: string;
+  tags: string[];
+}
+
 /** An experience entry for the bento grid. */
 export interface ExperienceEntry {
   number: string;
   dateRange: string;
   title: string;
   badge: string;
+  institution?: string;
   description: string;
-  footerLabel: string;
-  projectLogos: { src: string; alt: string }[];
+  responsibilities?: string[];
+  keyTakeaway?: string;
+  footerLabel?: string;
+  projectLogos?: { src: string; alt: string }[];
+  projects?: SchoolInternshipProject[];
 }
 
 /** A navigation link in the header. */

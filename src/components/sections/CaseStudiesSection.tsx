@@ -12,7 +12,7 @@ export default function CaseStudiesSection({ onOpenStudy }: Props) {
           <span className="text-xs font-bold tracking-[0.2em] uppercase text-muted-foreground mb-3 sm:mb-4 block">
             {CASE_STUDY_ORDER.length} Projects
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-[70px] uppercase font-bold leading-none mb-4 text-foreground">Selected Work</h2>
+          <h2 className="font-display text-4xl sm:text-5xl md:text-[70px] uppercase font-bold leading-none mb-4 text-foreground">My Case Study Projects</h2>
           <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-md mt-2 sm:mt-4">
             End-to-end projects — from research &amp; Figma to shipped, production-ready code.
           </p>

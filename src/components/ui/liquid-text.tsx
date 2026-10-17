@@ -5,9 +5,9 @@ import { cn } from "@/lib/utils";
 import { useAdaptivePerformance } from "@/hooks/useAdaptivePerformance";
 
 const morphTime = 1.5;
-const cooldownTime = 0.5;
+const cooldownTime = 2.5;
 
-const useMorphingText = (texts: string[], isVisible: boolean) => {
+const useMorphingText = (texts: string[], isVisible: boolean, blurMultiplier = 1) => {
   const { blurScale } = useAdaptivePerformance();
   const textIndexRef = useRef(0);
   const morphRef = useRef(0);
@@ -22,20 +22,21 @@ const useMorphingText = (texts: string[], isVisible: boolean) => {
       const [current1, current2] = [text1Ref.current, text2Ref.current];
       if (!current1 || !current2 || !texts || texts.length === 0) return;
 
-      const maxBlur = 80 * blurScale;
-      const b2 = Math.min((8 / fraction - 8) * blurScale, maxBlur);
+      const scale = blurScale * blurMultiplier;
+      const maxBlur = 80 * scale;
+      const b2 = Math.min((8 / fraction - 8) * scale, maxBlur);
       current2.style.filter = `blur(${b2}px)`;
       current2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
 
       const invertedFraction = 1 - fraction;
-      const b1 = Math.min((8 / invertedFraction - 8) * blurScale, maxBlur);
+      const b1 = Math.min((8 / invertedFraction - 8) * scale, maxBlur);
       current1.style.filter = `blur(${b1}px)`;
       current1.style.opacity = `${Math.pow(invertedFraction, 0.4) * 100}%`;
 
       current1.textContent = texts[textIndexRef.current % texts.length];
       current2.textContent = texts[(textIndexRef.current + 1) % texts.length];
     },
-    [texts, blurScale],
+    [texts, blurScale, blurMultiplier],
   );
 
   const doMorph = useCallback(() => {
@@ -108,10 +109,16 @@ const useMorphingText = (texts: string[], isVisible: boolean) => {
 interface MorphingTextProps {
   className?: string;
   texts: string[];
+  blurMultiplier?: number;
+  filterId?: "threshold" | "threshold-sm";
 }
 
-const Texts: React.FC<Pick<MorphingTextProps, "texts"> & { isVisible: boolean }> = ({ texts, isVisible }) => {
-  const { text1Ref, text2Ref } = useMorphingText(texts, isVisible);
+const Texts: React.FC<Pick<MorphingTextProps, "texts"> & { isVisible: boolean; blurMultiplier?: number }> = ({ 
+  texts, 
+  isVisible,
+  blurMultiplier = 1,
+}) => {
+  const { text1Ref, text2Ref } = useMorphingText(texts, isVisible, blurMultiplier);
   return (
     <>
       <span
@@ -145,11 +152,26 @@ const SvgFilters: React.FC = () => (
                   0 0 0 255 -140"
         />
       </filter>
+      <filter id="threshold-sm" x="-50%" y="-50%" width="200%" height="200%">
+        <feColorMatrix
+          in="SourceGraphic"
+          type="matrix"
+          values="1 0 0 0 0
+                  0 1 0 0 0
+                  0 0 1 0 0
+                  0 0 0 255 -60"
+        />
+      </filter>
     </defs>
   </svg>
 );
 
-const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => {
+const MorphingText: React.FC<MorphingTextProps> = ({ 
+  texts, 
+  className,
+  blurMultiplier = 1,
+  filterId = "threshold",
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -169,15 +191,20 @@ const MorphingText: React.FC<MorphingTextProps> = ({ texts, className }) => {
     return () => observer.disconnect();
   }, []);
 
+  const filterClass = filterId === "threshold-sm" 
+    ? "[filter:url(#threshold-sm)_blur(0.2px)]" 
+    : "[filter:url(#threshold)_blur(0.6px)]";
+
   return (
     <div
       ref={containerRef}
       className={cn(
-        "relative mx-auto h-16 w-full max-w-screen-md text-center font-sans text-[40pt] font-bold leading-none [filter:url(#threshold)_blur(0.6px)] md:h-24 lg:text-[6rem]",
+        "relative mx-auto w-full text-center leading-none",
+        filterClass,
         className,
       )}
     >
-      <Texts texts={texts} isVisible={isVisible} />
+      <Texts texts={texts} isVisible={isVisible} blurMultiplier={blurMultiplier} />
       <SvgFilters />
     </div>
   );

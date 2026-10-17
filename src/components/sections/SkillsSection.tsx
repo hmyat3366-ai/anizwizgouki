@@ -1,6 +1,9 @@
 import { SKILLS } from "../../data/skills";
+import { asset } from "../../lib/asset";
 
-/** Skills section with accordion items and a sticky image placeholder for the morphing card. */
+/**
+ * Skills section with interactive accordion items and a showcase video of the design & development workflow.
+ */
 export default function SkillsSection() {
   return (
     <section id="services-section" className="w-full mt-20 md:mt-32 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start relative min-h-0 lg:min-h-[70vh]">
@@ -41,9 +44,23 @@ export default function SkillsSection() {
         </div>
       </div>
 
-      {/* Right / Bottom: Placeholder for the morphing image & video card */}
-      <div className="flex w-full items-center justify-center pointer-events-none mt-10 lg:mt-0 lg:sticky lg:top-32 lg:h-full lg:min-h-[500px]">
-        <div id="services-placeholder" className="img-placeholder w-[76vw] sm:w-[80vw] max-w-[270px] sm:max-w-[380px] lg:w-4/5 aspect-[3/4] lg:aspect-[4/5]" />
+      {/* Right / Bottom: Design & Development Workflow Video Showcase */}
+      <div className="flex w-full items-center justify-center mt-10 lg:mt-0 lg:sticky lg:top-32 lg:h-full lg:min-h-[500px]">
+        <div className="w-[76vw] sm:w-[80vw] max-w-[270px] sm:max-w-[380px] lg:w-4/5 aspect-[3/4] lg:aspect-[4/5] rounded-[2rem] xl:rounded-[2.5rem] overflow-hidden shadow-2xl border border-border/80 bg-card relative group">
+          <video
+            src={asset("Designing_website_development_wo…_202608261117.mp4")}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover object-center rounded-[2rem] xl:rounded-[2.5rem] bg-gray-200 dark:bg-gray-800"
+          />
+          <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-background/80 backdrop-blur-md border border-border/50 text-[11px] font-semibold text-foreground flex items-center justify-between">
+            <span>Workflow &amp; Code Execution</span>
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          </div>
+        </div>
       </div>
     </section>
   );
