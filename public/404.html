@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aniz Wiz Gouki | Jr. UI/UX Designer</title>
+    <meta name="description" content="Portfolio of Aniz Wiz Gouki, a passionate Jr. UI/UX Designer crafting user-centered experiences from design to code." />
+    <meta property="og:title" content="Aniz Wiz Gouki | Jr. UI/UX Designer" />
+    <meta property="og:description" content="Portfolio of Aniz Wiz Gouki, a passionate Jr. UI/UX Designer crafting user-centered experiences from design to code." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/awg-logo.svg" />
+
+    <!-- Performance: Preconnect to font CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- ⚡ Time-based theme init — runs before React renders to prevent flash -->
+    <script>
+      (function () {
+        var hour = new Date().getHours();
+        // Dark: 12:00 PM (noon) → 11:59 PM | Light: 12:00 AM → 11:59 AM
+        if (hour >= 12) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Xia Chat AI Widget -->
+    <script
+      src="https://xiachatv3.vercel.app/widget.js"
+      data-site-key="edad2b83-7fd5-4359-811f-9c1521db19e2"
+      data-api-base="https://xiachatv3.vercel.app"
+      data-position="bottom-right"
+      data-theme="dark"
+      async
+    ></script>
+  </body>
+</html>
